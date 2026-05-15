@@ -1,0 +1,228 @@
+.page {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background-color: var(--color-background);
+}
+
+/* ---- Abstract Background ---- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bgGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(198, 196, 223, 0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(198, 191, 255, 0.05) 0%, transparent 50%),
+              linear-gradient(to bottom, var(--color-background) 0%, var(--color-surface-container-lowest) 100%);
+}
+
+.bgOrb1 {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(181, 211, 63, 0.06) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.bgOrb2 {
+  position: absolute;
+  bottom: -100px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(198, 191, 255, 0.07) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.bgOrb3 {
+  position: absolute;
+  top: 40%;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(198, 196, 223, 0.05) 0%, transparent 70%);
+  filter: blur(50px);
+}
+
+/* ---- Main Layout ---- */
+.main {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-container-margin);
+  gap: var(--space-md);
+}
+
+/* ---- Glassmorphism Card ---- */
+.card {
+  width: 100%;
+  max-width: 448px;
+  background-color: rgba(25, 32, 43, 0.60);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* ---- Brand Header ---- */
+.brandHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-sm);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.logoIcon {
+  font-size: 32px;
+  color: var(--color-secondary);
+}
+
+.logoText {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  letter-spacing: var(--letter-spacing-h2);
+  color: var(--color-secondary);
+}
+
+.heading {
+  color: var(--color-on-surface);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+}
+
+.subheading {
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-body-md);
+}
+
+/* ---- Social Button ---- */
+.socialBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 0 var(--space-md);
+  background-color: rgba(12, 20, 31, 0.50);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+}
+
+.socialBtn:hover {
+  background-color: var(--color-surface-container-high);
+  border-color: var(--color-outline);
+}
+
+/* ---- Divider ---- */
+.dividerWrapper {
+  margin: var(--space-lg) 0;
+}
+
+/* ---- Form ---- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.passwordField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.passwordHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.passwordLabel {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+}
+
+.forgotLink {
+  font-size: var(--font-size-body-md);
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.forgotLink:hover {
+  color: var(--color-secondary-fixed);
+}
+
+/* ---- Signup Row ---- */
+.signupRow {
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
+.signupLink {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-h3);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.signupLink:hover {
+  color: var(--color-secondary-fixed);
+}
+
+/* ---- Trust Indicators ---- */
+.trustRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-sm);
+}
+
+.trustIcon {
+  font-size: 24px;
+  color: var(--color-outline-variant);
+  cursor: default;
+  transition: color 150ms;
+}
+
+.trustIcon:hover {
+  color: var(--color-outline);
+}

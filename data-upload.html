@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compass - Upload Statement</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#1a1a2e",
+                    "outline-variant": "#47464c",
+                    "primary": "#c6c4df",
+                    "surface-container": "#19202b",
+                    "tertiary-container": "#170067",
+                    "surface-variant": "#2e3541",
+                    "primary-fixed-dim": "#c6c4df",
+                    "on-error": "#690005",
+                    "secondary-container": "#86a100",
+                    "surface-container-highest": "#2e3541",
+                    "inverse-primary": "#5d5c74",
+                    "surface-container-lowest": "#070e19",
+                    "on-background": "#dce2f3",
+                    "secondary-fixed": "#d1f059",
+                    "on-tertiary-fixed-variant": "#4029ba",
+                    "surface-dim": "#0c141f",
+                    "on-secondary": "#2a3400",
+                    "on-secondary-fixed-variant": "#3e4c00",
+                    "surface-bright": "#323946",
+                    "on-tertiary-container": "#7f70fc",
+                    "on-secondary-fixed": "#171e00",
+                    "tertiary-fixed-dim": "#c6bfff",
+                    "surface": "#0c141f",
+                    "outline": "#929097",
+                    "on-tertiary-fixed": "#160066",
+                    "on-primary-container": "#83829b",
+                    "surface-container-low": "#151c27",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#c6c4df",
+                    "tertiary-fixed": "#e4dfff",
+                    "on-surface-variant": "#c8c5cd",
+                    "inverse-surface": "#dce2f3",
+                    "on-surface": "#dce2f3",
+                    "error-container": "#93000a",
+                    "secondary": "#b5d33f",
+                    "on-secondary-container": "#283200",
+                    "on-primary": "#2f2e43",
+                    "secondary-fixed-dim": "#b5d33f",
+                    "on-tertiary": "#2900a0",
+                    "background": "#0c141f",
+                    "on-primary-fixed-variant": "#45455b",
+                    "inverse-on-surface": "#2a313d",
+                    "tertiary": "#c6bfff",
+                    "on-primary-fixed": "#1a1a2e",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#232a36",
+                    "primary-fixed": "#e2e0fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "container-margin": "24px",
+                    "gutter": "16px",
+                    "xl": "48px",
+                    "unit": "4px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "h1": ["Manrope"],
+                    "label-caps": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "h1": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                    "h2": ["28px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col selection:bg-tertiary selection:text-on-tertiary">
+<!-- Transactional Header (Global Nav Suppressed) -->
+<header class="w-full border-b border-surface-container-highest bg-surface-container/50 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-[1440px] mx-auto px-lg h-[72px] flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-size: 32px; font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-h3 text-h3 text-on-surface tracking-tight">Compass</span>
+</div>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-on-surface transition-colors font-body-md rounded-lg px-sm py-xs hover:bg-surface-container-high">
+<span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+<span>Cancel Upload</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-[900px] mx-auto px-lg py-xl flex flex-col gap-xl">
+<!-- Header & Stepper Section -->
+<div class="flex flex-col gap-lg">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Secure Upload</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Submit your financial documents for secure AI processing and storage.</p>
+</div>
+<!-- Horizontal Step Indicator -->
+<div class="relative w-full pt-md pb-sm">
+<!-- Background Line -->
+<div class="absolute top-[28px] left-[5%] w-[90%] h-[2px] bg-surface-container-highest z-0"></div>
+<!-- Progress Line -->
+<div class="absolute top-[28px] left-[5%] w-[33%] h-[2px] bg-secondary z-0 transition-all duration-500"></div>
+<div class="relative z-10 flex justify-between items-start w-full">
+<!-- Step 1: Completed -->
+<div class="flex flex-col items-center gap-sm w-1/4">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shadow-[0_0_12px_rgba(181,211,63,0.3)]">
+<span class="material-symbols-outlined text-on-secondary" style="font-size: 16px; font-variation-settings: 'wght' 700;">check</span>
+</div>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest text-center mt-xs">Choose Type</span>
+</div>
+<!-- Step 2: Active -->
+<div class="flex flex-col items-center gap-sm w-1/4">
+<div class="w-8 h-8 rounded-full bg-surface-container border-2 border-secondary flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-secondary">2</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest text-center mt-xs">Upload File</span>
+</div>
+<!-- Step 3: Pending -->
+<div class="flex flex-col items-center gap-sm w-1/4 opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">3</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-center mt-xs">AI Processing</span>
+</div>
+<!-- Step 4: Pending -->
+<div class="flex flex-col items-center gap-sm w-1/4 opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">4</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-center mt-xs">Review &amp; Save</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Two-Column Bento Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-start">
+<!-- Left Column: Primary Upload Form (Col Span 8) -->
+<div class="md:col-span-8 flex flex-col gap-lg">
+<!-- Configuration Card -->
+<div class="bg-surface-container rounded-xl p-lg border border-surface-container-highest shadow-2xl shadow-black/20 flex flex-col gap-lg">
+<!-- Document Type Grid -->
+<div class="flex flex-col gap-md">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">1. Document Type</label>
+<div class="grid grid-cols-2 gap-md">
+<!-- Active Type -->
+<div class="p-md rounded-lg border-2 border-tertiary bg-tertiary/10 flex items-start gap-md cursor-pointer relative overflow-hidden transition-all">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent z-0"></div>
+<span class="material-symbols-outlined text-tertiary relative z-10" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<div class="flex flex-col relative z-10">
+<span class="font-h3 text-[16px] text-on-surface mb-xs">Bank Statement</span>
+<span class="font-body-md text-[13px] text-on-surface-variant leading-tight">Monthly account summaries</span>
+</div>
+</div>
+<!-- Inactive Type 1 -->
+<div class="p-md rounded-lg border border-outline-variant bg-surface-container-high hover:bg-surface-container-highest flex items-start gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">request_quote</span>
+<div class="flex flex-col">
+<span class="font-h3 text-[16px] text-on-surface mb-xs">Tax Document</span>
+<span class="font-body-md text-[13px] text-on-surface-variant leading-tight">W-2, 1099, or returns</span>
+</div>
+</div>
+<!-- Inactive Type 2 -->
+<div class="p-md rounded-lg border border-outline-variant bg-surface-container-high hover:bg-surface-container-highest flex items-start gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">receipt_long</span>
+<div class="flex flex-col">
+<span class="font-h3 text-[16px] text-on-surface mb-xs">Invoice</span>
+<span class="font-body-md text-[13px] text-on-surface-variant leading-tight">Vendor or client bills</span>
+</div>
+</div>
+<!-- Inactive Type 3 -->
+<div class="p-md rounded-lg border border-outline-variant bg-surface-container-high hover:bg-surface-container-highest flex items-start gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">folder_open</span>
+<div class="flex flex-col">
+<span class="font-h3 text-[16px] text-on-surface mb-xs">Other</span>
+<span class="font-body-md text-[13px] text-on-surface-variant leading-tight">Contracts and notices</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Institution Selector -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">2. Financial Institution</label>
+<div class="relative">
+<select class="w-full bg-surface-container-high border border-outline-variant rounded-lg p-md text-on-surface font-body-md appearance-none focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary transition-all cursor-pointer">
+<option disabled="" selected="" value="">Select an institution...</option>
+<option value="chase">JPMorgan Chase &amp; Co.</option>
+<option value="bofa">Bank of America</option>
+<option value="citi">Citibank</option>
+<option value="fidelity">Fidelity Investments</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Large Drop Zone -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest px-xs">3. File Upload</label>
+<div class="border-2 border-dashed border-tertiary/60 bg-tertiary/5 rounded-xl p-xl flex flex-col items-center justify-center text-center hover:bg-tertiary/10 transition-colors group cursor-pointer min-h-[240px] relative overflow-hidden">
+<!-- Decorative ambient glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-tertiary/20 blur-[60px] rounded-full pointer-events-none group-hover:bg-tertiary/30 transition-all duration-700"></div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-surface-container border border-surface-container-highest flex items-center justify-center mb-md group-hover:scale-110 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+<span class="material-symbols-outlined text-tertiary" style="font-size: 32px;">cloud_upload</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-tertiary transition-colors">Drag &amp; drop your file here</h3>
+<p class="font-body-md text-on-surface-variant mb-md">or click to browse from your computer</p>
+<div class="flex items-center gap-sm mt-sm">
+<span class="px-sm py-xs rounded bg-surface-container-high text-on-surface-variant font-label-caps text-[10px] border border-outline-variant">PDF</span>
+<span class="px-sm py-xs rounded bg-surface-container-high text-on-surface-variant font-label-caps text-[10px] border border-outline-variant">CSV</span>
+<span class="px-sm py-xs rounded bg-surface-container-high text-on-surface-variant font-label-caps text-[10px] border border-outline-variant">JPG/PNG</span>
+<span class="text-on-surface-variant font-body-md text-[12px] ml-xs">Max 50MB</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Info Box (Col Span 4) -->
+<div class="md:col-span-4 flex flex-col gap-lg">
+<div class="bg-surface-container rounded-xl border border-surface-container-highest shadow-xl overflow-hidden relative">
+<!-- Header with Image Prompt Requirement -->
+<div class="h-32 w-full relative bg-surface-container-high border-b border-surface-container-highest" data-alt="A sophisticated abstract digital art composition featuring flowing, translucent geometric layers in deep navy and vibrant luminescent purple. The lighting is moody and cinematic, highlighting the glassmorphic textures and creating a sense of secure momentum. The visual style embodies a modern, high-tech fintech aesthetic with sharp precision and atmospheric depth." style="background-image: linear-gradient(to bottom right, rgba(23,0,103,0.8), rgba(26,26,46,0.9)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPx_i57VCdE0IyKpYckxQhDHN5fxDJevqwgz6Dtdz0Mve-qmtQH8UP3sGVuoEv7AJklAVfYfjw5KaVlcge0Z76KKqQWvxPEMSuI6kz0LstXBsIbAlvCH9fdlTwoO51GQBKEgDZDppALjLM7YC2EiR5nYAU0Vkl3-8sG8oJhLAtH6MGbLMVky0NahRiVQ62jN5V0oNwNO4mjYAgJZ85FHvhIgMzLauSN7dTKhkNuPi8BVcBMcR5n8uBK1fwxWHq3nENcHkyQipwjUo'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 p-lg flex flex-col justify-end z-10">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-tertiary" style="font-size: 20px;">smart_toy</span>
+<h3 class="font-h3 text-[18px] text-on-surface font-bold">AI Extraction Tips</h3>
+</div>
+</div>
+</div>
+<div class="p-lg flex flex-col gap-md">
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">Our Compass AI automatically extracts transactional data. Follow these guidelines for perfect accuracy.</p>
+<ul class="flex flex-col gap-sm mt-xs">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary mt-[2px]" style="font-size: 18px;">check_circle</span>
+<span class="font-body-md text-[14px] text-on-surface">Ensure all document pages are included in a single file.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary mt-[2px]" style="font-size: 18px;">check_circle</span>
+<span class="font-body-md text-[14px] text-on-surface">Scans must be flat, well-lit, and legible without cropping.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary mt-[2px]" style="font-size: 18px;">check_circle</span>
+<span class="font-body-md text-[14px] text-on-surface">Remove password protection from PDFs before uploading.</span>
+</li>
+</ul>
+<div class="mt-md pt-md border-t border-outline-variant/30 flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline-variant" style="font-size: 16px;">lock</span>
+<span class="font-body-md text-[12px] text-outline-variant">End-to-end encrypted transfer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="w-full pt-lg mt-md border-t border-surface-container-highest flex items-center justify-end gap-md">
+<button class="px-lg py-[12px] rounded-lg border border-outline-variant text-on-surface font-label-caps text-label-caps uppercase tracking-widest hover:bg-surface-container-high hover:border-on-surface-variant transition-all">
+                Cancel
+            </button>
+<button class="px-lg py-[12px] rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest hover:bg-secondary-fixed transition-all flex items-center gap-sm shadow-[0_4px_14px_rgba(181,211,63,0.2)]">
+                Continue to Review
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

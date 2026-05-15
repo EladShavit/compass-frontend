@@ -1,0 +1,28 @@
+.hr {
+  border: none;
+  border-top: 1px solid rgba(240, 240, 248, 0.08);
+  width: 100%;
+}
+
+.dividerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(240, 240, 248, 0.10);
+}
+
+.label {
+  font-size: var(--font-size-label-caps);
+  font-weight: var(--font-weight-label-caps);
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+  color: var(--color-outline);
+  white-space: nowrap;
+  flex-shrink: 0;
+}

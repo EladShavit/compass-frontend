@@ -1,0 +1,19 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-secondary);
+  text-decoration: none;
+  user-select: none;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.wordmark {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  letter-spacing: var(--letter-spacing-h2);
+  color: var(--color-secondary);
+}

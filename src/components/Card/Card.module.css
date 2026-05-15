@@ -1,0 +1,24 @@
+.card {
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  background-color: var(--color-surface-container);
+}
+
+.padded {
+  padding: var(--card-padding);
+}
+
+.default {
+  background-color: var(--color-surface-container);
+}
+
+.glass {
+  background-color: rgba(25, 32, 43, 0.60);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.elevated {
+  background-color: var(--color-surface-container-high);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}

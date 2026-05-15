@@ -1,0 +1,5 @@
+.text {
+  font-size: var(--font-size-label-caps);
+  color: var(--color-outline);
+  letter-spacing: var(--letter-spacing-label-caps);
+}

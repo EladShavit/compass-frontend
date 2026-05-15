@@ -1,0 +1,21 @@
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.sm  { width: 32px; height: 32px; }
+.sm .material-symbols-outlined { font-size: 18px; }
+
+.md  { width: 40px; height: 40px; }
+.md .material-symbols-outlined { font-size: 22px; }
+
+.lg  { width: 52px; height: 52px; }
+.lg .material-symbols-outlined { font-size: 28px; }
+
+.primary  { background-color: var(--color-primary-container);  color: var(--color-primary); }
+.secondary{ background-color: color-mix(in srgb, var(--color-secondary) 20%, transparent); color: var(--color-secondary); }
+.tertiary { background-color: var(--color-tertiary-container); color: var(--color-tertiary); }
+.neutral  { background-color: var(--color-surface-container-high); color: var(--color-on-surface-variant); }

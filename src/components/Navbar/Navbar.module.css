@@ -1,0 +1,26 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(12, 20, 31, 0.85);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid rgba(240, 240, 248, 0.06);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-sm) var(--space-container-margin);
+  height: 64px;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}

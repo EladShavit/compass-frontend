@@ -1,0 +1,40 @@
+.nav { display: inline-block; }
+
+.list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.link {
+  font-size: var(--font-size-label-caps);
+  letter-spacing: var(--letter-spacing-label-caps);
+  color: var(--color-outline);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 150ms;
+}
+
+.link:hover {
+  color: var(--color-on-surface);
+}
+
+.current {
+  font-size: var(--font-size-label-caps);
+  letter-spacing: var(--letter-spacing-label-caps);
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.sep {
+  font-size: 14px;
+  color: var(--color-outline-variant);
+}

@@ -1,0 +1,41 @@
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-on-surface-variant);
+  transition: background-color 150ms, color 150ms;
+}
+
+.btn:hover {
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+.icon {
+  font-size: 22px;
+}
+
+.badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-error);
+  color: var(--color-on-error);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

@@ -1,0 +1,19 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.link {
+  font-size: var(--font-size-label-caps);
+  color: var(--color-outline);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+  transition: color 150ms;
+}
+
+.link:hover {
+  color: var(--color-on-surface);
+}
