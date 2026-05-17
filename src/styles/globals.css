@@ -281,9 +281,7 @@ body {
    RTL Support
    ============================================================ */
 
-[dir="rtl"] {
-  text-align: right;
-}
+/* RTL support is available but pages use LTR by default */
 
 /* ============================================================
    Scrollbar Styling (WebKit)

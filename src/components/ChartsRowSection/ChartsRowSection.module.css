@@ -1,0 +1,14 @@
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  align-items: stretch;
+}
+
+.chart  { min-height: 320px; }
+.actions { min-height: 320px; }
+
+@media (max-width: 900px) {
+  .row { grid-template-columns: 1fr; }
+}

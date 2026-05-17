@@ -1,0 +1,16 @@
+.wrapper { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.sectionLabel {
+  color: var(--color-on-surface-variant);
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+}

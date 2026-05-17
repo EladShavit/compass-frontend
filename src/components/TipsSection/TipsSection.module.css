@@ -1,0 +1,81 @@
+/* Card */
+.card {
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-surface-container-highest);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+/* Banner */
+.banner {
+  height: 128px;
+  width: 100%;
+  position: relative;
+  background-color: var(--color-surface-container-high);
+  border-bottom: 1px solid var(--color-surface-container-highest);
+}
+
+.bannerGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(23, 0, 103, 0.85),
+    rgba(26, 26, 46, 0.95)
+  );
+}
+
+.bannerContent {
+  position: absolute;
+  inset: 0;
+  padding: var(--space-lg);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  z-index: 10;
+}
+
+.bannerTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-on-surface);
+}
+
+/* Body */
+.body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.intro {
+  font-size: 14px;
+  color: var(--color-on-surface-variant);
+  line-height: 1.6;
+}
+
+.tipsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+/* Encryption row */
+.encryptRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  margin-top: var(--space-xs);
+}
+
+.encryptText {
+  font-size: 12px;
+  color: var(--color-outline-variant);
+}

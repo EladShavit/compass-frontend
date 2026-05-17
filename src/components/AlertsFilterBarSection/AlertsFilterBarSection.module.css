@@ -1,0 +1,34 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sortBtn {
+  margin-left: auto;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-default);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+  background: transparent;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms;
+}
+
+.sortBtn:hover {
+  color: var(--color-on-background);
+  border-color: color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+}

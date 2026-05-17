@@ -1,0 +1,114 @@
+/* Card shell */
+.wrapper {
+  background-color: var(--color-primary-container);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-lg);
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.actionBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 150ms, background-color 150ms;
+  font-family: var(--font-family-base);
+}
+
+.actionBtn:hover {
+  border-color: color-mix(in srgb, var(--color-tertiary) 50%, transparent);
+  background-color: var(--color-surface-container-high);
+}
+
+.actionBtn:hover .iconBox {
+  background-color: color-mix(in srgb, var(--color-tertiary) 12%, transparent);
+}
+
+.actionBtn:hover .arrow {
+  color: var(--color-tertiary);
+}
+
+.btnLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.iconBox {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-sm);
+  color: var(--color-tertiary);
+  transition: background-color 150ms;
+  flex-shrink: 0;
+}
+.iconBox .material-symbols-outlined { font-size: 20px; }
+
+.btnLabel {
+  font-size: var(--font-size-body-md);
+  font-weight: var(--font-weight-h3);
+  color: var(--color-on-surface);
+}
+
+.arrow {
+  font-size: 20px;
+  color: var(--color-outline-variant);
+  transition: color 150ms;
+}
+
+/* Drop zone */
+.dropZone {
+  margin-top: var(--space-md);
+  flex: 1;
+  border: 2px dashed color-mix(in srgb, var(--color-tertiary) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-tertiary) 5%, transparent);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 150ms;
+  min-height: 100px;
+}
+
+.dropZone:hover {
+  background-color: color-mix(in srgb, var(--color-tertiary) 10%, transparent);
+}
+
+.dropIcon {
+  font-size: 28px;
+  color: var(--color-tertiary);
+  margin-bottom: var(--space-xs);
+}
+
+.dropText {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+}

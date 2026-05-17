@@ -1,0 +1,98 @@
+/* Stepper container */
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-sm);
+}
+
+/* Background track */
+.track {
+  position: absolute;
+  top: 28px;
+  right: 5%;
+  left: 5%;
+  height: 2px;
+  background-color: var(--color-surface-container-highest);
+  z-index: 0;
+}
+
+/* Green progress fill */
+.progress {
+  position: absolute;
+  top: 28px;
+  right: 5%;
+  height: 2px;
+  background-color: var(--color-secondary);
+  z-index: 0;
+  transition: width 500ms ease;
+}
+
+/* Steps row */
+.steps {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Individual step */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 25%;
+}
+
+.pending { opacity: 0.5; }
+
+/* Circle */
+.circle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.circleDone {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-secondary) 30%, transparent);
+}
+
+.circleActive {
+  background-color: var(--color-surface-container);
+  border: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.circlePending {
+  background-color: var(--color-surface-container);
+  border: 2px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+}
+
+/* Step number */
+.stepNum {
+  font-size: var(--font-size-label-caps);
+  font-weight: var(--font-weight-label-caps);
+}
+
+/* Step label */
+.label {
+  font-size: var(--font-size-label-caps);
+  font-weight: var(--font-weight-label-caps);
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: var(--space-xs);
+}
+
+.labelActive  { color: var(--color-secondary); }
+.labelPending { color: var(--color-on-surface-variant); }

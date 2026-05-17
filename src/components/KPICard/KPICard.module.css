@@ -1,0 +1,129 @@
+/* ── KPI Card ────────────────────────────────────────────── */
+.card {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-primary-container);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: box-shadow 200ms ease;
+  cursor: default;
+}
+
+.card:hover {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset,
+              0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* hover glass sheen */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.03);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms;
+}
+.card:hover::after { opacity: 1; }
+
+/* wide variant – parent grid handles column span */
+.wide { /* styling only, span set in parent */ }
+
+/* ── Ambient orb ─────────────────────────────────────────── */
+.orb {
+  position: absolute;
+  top: -48px;
+  right: -48px;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-full);
+  filter: blur(40px);
+  pointer-events: none;
+  opacity: 0.25;
+}
+.orb-primary   { background: var(--color-primary); }
+.orb-secondary { background: var(--color-secondary); }
+.orb-tertiary  { background: var(--color-tertiary); }
+.orb-error     { background: var(--color-error); }
+
+/* ── Top row ─────────────────────────────────────────────── */
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-container);
+}
+.iconBox .material-symbols-outlined { font-size: 22px; }
+
+.icon-primary   { color: var(--color-primary); }
+.icon-secondary { color: var(--color-secondary); }
+.icon-tertiary  { color: var(--color-tertiary); }
+.icon-error     { color: var(--color-error); }
+
+/* ── Badge ───────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+}
+.badgeIcon { font-size: 13px !important; }
+
+.badge-secondary {
+  background-color: color-mix(in srgb, var(--color-secondary) 15%, transparent);
+  color: var(--color-secondary);
+}
+.badge-error {
+  background-color: color-mix(in srgb, var(--color-error) 15%, transparent);
+  color: var(--color-error);
+}
+.badge-tertiary {
+  background-color: color-mix(in srgb, var(--color-tertiary) 15%, transparent);
+  color: var(--color-tertiary);
+}
+
+/* ── Content ─────────────────────────────────────────────── */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  color: var(--color-outline);
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.value {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+  color: var(--color-on-surface);
+  letter-spacing: -0.01em;
+}
+
+.valueWide {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+  color: var(--color-on-surface);
+  letter-spacing: var(--letter-spacing-h2);
+}

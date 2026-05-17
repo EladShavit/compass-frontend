@@ -1,0 +1,68 @@
+.row {
+  border-bottom: var(--table-separator);
+  transition: background-color 120ms ease;
+}
+.row:hover {
+  background-color: color-mix(in srgb, var(--color-tertiary) 4%, transparent);
+}
+.last { border-bottom: none; }
+
+/* Merchant */
+.merchantCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-md) var(--space-md) var(--space-md);
+  white-space: nowrap;
+}
+
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.iconWrap .material-symbols-outlined { font-size: 20px; }
+
+.ic-default   { color: var(--color-on-surface-variant); }
+.ic-secondary { color: var(--color-secondary); }
+.ic-tertiary  { color: var(--color-tertiary); }
+.ic-error     { color: var(--color-error); }
+
+.name {
+  font-size: var(--font-size-body-md);
+  font-weight: var(--font-weight-h3);
+  color: var(--color-on-surface);
+}
+.category {
+  font-size: var(--font-size-label-caps);
+  color: var(--color-outline-variant);
+}
+
+/* Date */
+.dateCell {
+  padding: var(--space-md) var(--space-sm);
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+}
+
+/* Status */
+.statusCell {
+  padding: var(--space-md) var(--space-sm);
+}
+
+/* Amount */
+.amountCell {
+  padding: var(--space-md) var(--space-sm) var(--space-md) var(--space-md);
+  text-align: right;
+  font-size: var(--font-size-body-md);
+  font-weight: var(--font-weight-h3);
+  color: var(--color-on-surface);
+  white-space: nowrap;
+}
+.positive { color: var(--color-secondary); }

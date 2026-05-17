@@ -1,0 +1,75 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ── Top section: title + stepper ─────────────────────────── */
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.pageTitle {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-xs);
+}
+
+.pageSubtitle {
+  font-size: var(--font-size-body-lg);
+  color: var(--color-on-surface-variant);
+}
+
+/* ── Bento: 8+4 columns ────────────────────────────────────── */
+.bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .bento {
+    /* On RTL: formCol = right side (2fr), sidebar = left side (1fr) */
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Form column */
+.formCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Configuration card (doc type + institution) */
+.configCard {
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-surface-container-highest);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Sidebar */
+.sidebar {
+  position: sticky;
+  top: 88px; /* below sticky header */
+}

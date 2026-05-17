@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import Avatar from '../Avatar/Avatar'
+import Avatar from '../../Avatar/Avatar'
+import { auth } from '../../../lib/auth'
 import styles from './UserAvatar.module.css'
 
 const MENU_ITEMS = [
@@ -52,7 +53,16 @@ export default function UserAvatar({ name = 'Alex Morgan', initials = 'AM', src 
             item.divider ? (
               <div key={i} className={styles.divider} />
             ) : (
-              <button key={item.label} type="button" className={styles.menuItem} role="menuitem">
+              <button 
+                key={item.label} 
+                type="button" 
+                className={styles.menuItem} 
+                role="menuitem"
+                onClick={item.label === 'Sign out' ? async () => {
+                  await auth.signOut()
+                  // The ProtectedRoute listener will automatically handle the redirect to /login
+                } : undefined}
+              >
                 <span className={`material-symbols-outlined ${styles.menuIcon}`}>{item.icon}</span>
                 {item.label}
               </button>

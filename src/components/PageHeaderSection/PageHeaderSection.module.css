@@ -1,0 +1,70 @@
+/* Sticky top bar */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: color-mix(in srgb, var(--color-surface-container) 50%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-surface-container-highest);
+  width: 100%;
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.brandName {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  color: var(--color-on-surface);
+  letter-spacing: -0.02em;
+}
+
+/* Cancel button */
+.cancelBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms;
+}
+.cancelBtn:hover {
+  color: var(--color-on-surface);
+  background-color: var(--color-surface-container-high);
+}
+
+/* Title block (below bar, inside main) */
+.titleBlock {
+  display: none; /* rendered via parent in main flow */
+}
+
+.title {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-xs);
+}
+
+.subtitle {
+  font-size: var(--font-size-body-lg);
+  color: var(--color-on-surface-variant);
+}

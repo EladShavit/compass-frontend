@@ -1,0 +1,21 @@
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.icon {
+  font-size: 18px !important;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.check   { color: var(--color-secondary); }
+.warning { color: #f5a623; }
+.info    { color: var(--color-tertiary); }
+
+.text {
+  font-size: 14px;
+  color: var(--color-on-surface);
+  line-height: 1.5;
+}

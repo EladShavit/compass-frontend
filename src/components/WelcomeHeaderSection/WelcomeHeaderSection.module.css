@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.heading {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-xs);
+}
+
+.sub {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+}
+
+.timestamp {
+  text-align: end;
+}
+
+.tsLabel {
+  color: var(--color-outline);
+  margin-bottom: 2px;
+  display: block;
+}
+
+.tsValue {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+}

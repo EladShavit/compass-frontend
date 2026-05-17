@@ -1,0 +1,26 @@
+.tag {
+  display: inline-block;
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-family-base);
+  white-space: nowrap;
+}
+
+.error {
+  background-color: color-mix(in srgb, var(--color-error) 20%, transparent);
+  color: var(--color-error);
+}
+
+.secondary {
+  background-color: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  color: var(--color-secondary);
+}
+
+.tertiary {
+  background-color: color-mix(in srgb, var(--color-tertiary) 20%, transparent);
+  color: var(--color-tertiary);
+}
