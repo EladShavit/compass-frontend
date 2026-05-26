@@ -29,7 +29,10 @@ export default function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!email || !password) {
+    
+    const cleanEmail = email.trim()
+    
+    if (!cleanEmail || !password) {
       setError('Please fill in all fields.')
       return
     }
@@ -38,7 +41,7 @@ export default function LoginPage() {
     
     try {
       const { data, error: signInError } = await auth.signInWithPassword({
-        email,
+        email: cleanEmail,
         password,
       })
 

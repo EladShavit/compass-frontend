@@ -30,7 +30,11 @@ export default function RegisterPage() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!email || !password || !confirmPassword || !fullName) {
+    
+    // Aggressively clean the email: trim, remove zero-width spaces, remove quotes, and convert to lowercase
+    const cleanEmail = email.replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/["']/g, '').trim().toLowerCase()
+    
+    if (!cleanEmail || !password || !confirmPassword || !fullName) {
       setError('Please fill in all fields.')
       return
     }
@@ -45,7 +49,7 @@ export default function RegisterPage() {
     
     try {
       const { data, error } = await auth.signUp({
-        email,
+        email: cleanEmail,
         password,
         options: {
           data: {
@@ -56,8 +60,13 @@ export default function RegisterPage() {
 
       if (error) throw error
       
-      // If sign up is successful, redirect to dashboard
-      // Note: If email confirmation is required by Supabase settings, this will still create the user but they might need to confirm their email first depending on your project configuration.
+      // If Supabase requires email confirmation, it returns a user but no session
+      if (data?.user && !data?.session) {
+        setError('Account created! Please check your email to verify your account before logging in.')
+        return
+      }
+      
+      // If sign up is successful and a session exists, redirect to dashboard
       navigate('/dashboard')
     } catch (err) {
       setError(err.message || 'Failed to create account. Check if Supabase keys are configured.')

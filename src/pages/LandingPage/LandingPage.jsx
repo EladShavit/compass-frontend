@@ -10,10 +10,10 @@ export default function LandingPage() {
       </p>
       <div style={{ marginTop: 'var(--space-xl)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center' }}>
         <Link to="/register" style={{ textDecoration: 'none' }}>
-          <Button variant="primary" size="large">Get Started</Button>
+          <Button variant="primary" size="lg" icon="arrow_forward" iconPosition="right">Get Started</Button>
         </Link>
         <Link to="/login" style={{ textDecoration: 'none' }}>
-          <Button variant="secondary" size="large">Login to Dashboard</Button>
+          <Button variant="secondary" size="lg" icon="login" iconPosition="left">Login to Dashboard</Button>
         </Link>
       </div>
     </div>
