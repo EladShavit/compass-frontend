@@ -1,73 +1,33 @@
 import AlertItem from '../AlertItem/AlertItem'
 import styles from './AlertsListSection.module.css'
 
-const ALL_ALERTS = [
-  {
-    id: 1,
-    category: 'critical',
-    accentColor: 'error',
-    icon: 'warning',
-    iconColor: 'error',
-    severityLabel: 'Critical Security',
-    timestamp: '10 mins ago',
-    title: 'Unusual Transaction Detected',
-    description: (
-      <>
-        A transaction of <strong style={{ color: 'var(--color-on-surface)' }}>$12,450.00</strong> was
-        initiated from an unrecognized IP address (Zurich, CH) on your Global Equity Account ending
-        in <strong>...4492</strong>.
-      </>
-    ),
-    primaryLabel: 'Review & Block',
-    primaryVariant: 'error',
-    secondaryLabel: 'Dismiss',
-  },
-  {
-    id: 2,
-    category: 'opportunities',
-    accentColor: 'secondary',
-    icon: 'lightbulb',
-    iconColor: 'secondary',
-    severityLabel: 'Yield Optimization',
-    timestamp: '2 hours ago',
-    title: 'Idle Cash Optimization Opportunity',
-    description: (
-      <>
-        You have <strong style={{ color: 'var(--color-on-surface)' }}>$245,000</strong> in idle cash
-        in your Primary Corporate Account. Transferring to the Compass High-Yield Treasury fund could
-        generate an estimated <strong>$1,100/month</strong>.
-      </>
-    ),
-    primaryLabel: 'Apply Strategy',
-    primaryVariant: 'secondary',
-    secondaryLabel: 'View Details',
-  },
-  {
-    id: 3,
-    category: 'duplicates',
-    accentColor: 'tertiary',
-    icon: 'content_copy',
-    iconColor: 'tertiary',
-    severityLabel: 'Billing Anomaly',
-    timestamp: 'Yesterday',
-    title: 'Potential Duplicate Vendor Charge',
-    description: (
-      <>
-        Two identical charges of <strong style={{ color: 'var(--color-on-surface)' }}>$4,250.00</strong>{' '}
-        were posted from <em>Salesforce EMEA</em> within 48 hours on your Operations Account.
-        Review to prevent overpayment.
-      </>
-    ),
-    primaryLabel: 'Dispute Charge',
-    primaryVariant: 'tertiary',
-    secondaryLabel: 'Ignore',
-  },
-]
+export default function AlertsListSection({ activeFilter = 'all', alerts = [], onDismiss }) {
+  // We need to map our activeFilter categories (critical, opportunities, duplicates)
+  // to the DB alert_categories if needed, but for simplicity we can filter based on severity
+  
+  const mapSeverityToFilter = (severity) => {
+    const s = severity?.toLowerCase()
+    if (s === 'critical') return 'critical'
+    if (s === 'opportunity') return 'opportunities'
+    if (s === 'warning') return 'duplicates'
+    return 'all'
+  }
 
-export default function AlertsListSection({ activeFilter = 'all' }) {
   const filtered = activeFilter === 'all'
-    ? ALL_ALERTS
-    : ALL_ALERTS.filter((a) => a.category === activeFilter)
+    ? alerts
+    : alerts.filter((a) => mapSeverityToFilter(a.alert_categories?.default_severity) === activeFilter)
+
+  const formatTimestamp = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString()
+  }
+
+  const getAlertColor = (severity) => {
+    const s = severity?.toLowerCase()
+    if (s === 'critical') return 'error'
+    if (s === 'warning') return 'tertiary'
+    if (s === 'opportunity') return 'secondary'
+    return 'primary'
+  }
 
   return (
     <div className={styles.list} role="list">
@@ -79,9 +39,26 @@ export default function AlertsListSection({ activeFilter = 'all' }) {
           <p>No alerts in this category.</p>
         </div>
       ) : (
-        filtered.map((alert) => (
-          <AlertItem key={alert.id} {...alert} />
-        ))
+        filtered.map((alert) => {
+          const color = getAlertColor(alert.alert_categories?.default_severity)
+          return (
+            <AlertItem 
+              key={alert.alert_id} 
+              category={alert.alert_categories?.name}
+              accentColor={color}
+              icon={alert.alert_categories?.default_severity?.toLowerCase() === 'critical' ? 'warning' : 'info'}
+              iconColor={color}
+              severityLabel={alert.alert_categories?.name}
+              timestamp={formatTimestamp(alert.created_at)}
+              title={alert.title}
+              description={alert.description}
+              primaryLabel="Review"
+              primaryVariant={color}
+              secondaryLabel="Dismiss"
+              onSecondaryClick={() => onDismiss && onDismiss(alert.alert_id)}
+            />
+          )
+        })
       )}
     </div>
   )

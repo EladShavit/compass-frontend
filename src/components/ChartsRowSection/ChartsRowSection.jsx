@@ -5,11 +5,11 @@ import styles from './ChartsRowSection.module.css'
 /**
  * ChartsRowSection — 2/3 chart + 1/3 quick actions side by side
  */
-export default function ChartsRowSection() {
+export default function ChartsRowSection({ chartData = [] }) {
   return (
-    <section className={styles.row} aria-label="גרפים ופעולות">
+    <section className={styles.row} aria-label="Charts and Actions">
       <div className={styles.chart}>
-        <ExpenseChartSection />
+        <ExpenseChartSection chartData={chartData} />
       </div>
       <div className={styles.actions}>
         <QuickActionsSection />

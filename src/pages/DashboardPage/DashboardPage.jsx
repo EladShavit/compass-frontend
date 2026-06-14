@@ -1,45 +1,60 @@
-import { useState } from 'react'
+import { useAuth } from '../../context/AuthContext'
+import { useAlerts } from '../../hooks/useAlerts'
+import { useAccounts } from '../../hooks/useAccounts'
+import { useTransactions } from '../../hooks/useTransactions'
+import { useChartData } from '../../hooks/useChartData'
 import WelcomeHeaderSection from '../../components/WelcomeHeaderSection/WelcomeHeaderSection'
 import AlertsBannerSection from '../../components/AlertsBannerSection/AlertsBannerSection'
 import KPIStatsSection from '../../components/KPIStatsSection/KPIStatsSection'
 import ChartsRowSection from '../../components/ChartsRowSection/ChartsRowSection'
 import RecentTransactionsSection from '../../components/RecentTransactionsSection/RecentTransactionsSection'
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
 import styles from './DashboardPage.module.css'
 
-const INITIAL_ALERTS = [
-  {
-    id: 1,
-    type: 'warning',
-    icon: 'warning',
-    message: 'An unusual transaction of ₪3,200 from "Shopping Center" was detected. Please confirm if this is correct.',
-  },
-  {
-    id: 2,
-    type: 'info',
-    icon: 'info',
-    message: 'Your monthly report for October is ready to view.',
-  },
-]
-
 export default function DashboardPage() {
-  const [alerts, setAlerts] = useState(INITIAL_ALERTS)
+  const { profile, user } = useAuth()
+  const { alerts, loading: loadingAlerts, dismissAlert } = useAlerts('New')
+  const { accounts, loading: loadingAccounts } = useAccounts()
+  const { transactions, loading: loadingTransactions } = useTransactions(5)
+  const { chartData, loading: loadingChart } = useChartData()
 
-  function dismissAlert(id) {
-    setAlerts((prev) => prev.filter((a) => a.id !== id))
+  // Use the profile first name, or display name, or fallback to User
+  const firstName = profile?.first_name || profile?.display_name?.split(' ')[0] || user?.email?.split('@')[0] || 'User'
+
+  const isLoading = loadingAlerts || loadingAccounts || loadingTransactions || loadingChart
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingSpinner />
+      </div>
+    )
   }
+
+  // Format alerts for the banner
+  const formattedAlerts = alerts.map(a => ({
+    id: a.alert_id,
+    type: a.alert_categories?.default_severity?.toLowerCase() === 'critical' ? 'error' 
+        : a.alert_categories?.default_severity?.toLowerCase() === 'warning' ? 'warning' 
+        : 'info',
+    icon: a.alert_categories?.default_severity?.toLowerCase() === 'critical' ? 'error'
+        : a.alert_categories?.default_severity?.toLowerCase() === 'warning' ? 'warning'
+        : 'info',
+    message: a.title,
+  }))
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <WelcomeHeaderSection name="Alex" updatedAt="Today, 09:41 AM" />
+        <WelcomeHeaderSection name={firstName} updatedAt={new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} />
 
-        <AlertsBannerSection alerts={alerts} onDismiss={dismissAlert} />
+        <AlertsBannerSection alerts={formattedAlerts} onDismiss={dismissAlert} />
 
-        <KPIStatsSection />
+        <KPIStatsSection accounts={accounts} />
 
-        <ChartsRowSection />
+        <ChartsRowSection chartData={chartData} />
 
-        <RecentTransactionsSection />
+        <RecentTransactionsSection transactions={transactions} />
       </main>
     </div>
   )

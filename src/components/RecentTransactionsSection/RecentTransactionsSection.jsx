@@ -1,43 +1,15 @@
 import TransactionListItem from '../TransactionListItem/TransactionListItem'
 import styles from './RecentTransactionsSection.module.css'
 
-const TRANSACTIONS = [
-  {
-    id: 1,
-    icon: 'storefront',
-    iconColor: 'default',
-    name: 'Apple Store',
-    category: 'Electronics',
-    date: 'Oct 24, 2024',
-    status: 'completed',
-    amount: '-$1,299.00',
-    positive: false,
-  },
-  {
-    id: 2,
-    icon: 'flight',
-    iconColor: 'default',
-    name: 'Delta Airlines',
-    category: 'Travel',
-    date: 'Oct 22, 2024',
-    status: 'pending',
-    amount: '-$450.00',
-    positive: false,
-  },
-  {
-    id: 3,
-    icon: 'payments',
-    iconColor: 'secondary',
-    name: 'Tech Corp Inc.',
-    category: 'Payroll',
-    date: 'Oct 15, 2024',
-    status: 'completed',
-    amount: '+$8,500.00',
-    positive: true,
-  },
-]
+export default function RecentTransactionsSection({ transactions = [] }) {
+  const formatCurrency = (amount, currency = 'USD') => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount)
+  }
 
-export default function RecentTransactionsSection() {
+  const formatDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  }
+
   return (
     <section className={styles.wrapper} aria-label="Recent Transactions">
       {/* Header */}
@@ -65,13 +37,33 @@ export default function RecentTransactionsSection() {
             </tr>
           </thead>
           <tbody>
-            {TRANSACTIONS.map((tx, i) => (
-              <TransactionListItem
-                key={tx.id}
-                {...tx}
-                last={i === TRANSACTIONS.length - 1}
-              />
-            ))}
+            {transactions.length === 0 ? (
+              <tr>
+                <td colSpan="4" style={{ textAlign: 'center', padding: 'var(--space-xl)', color: 'var(--color-on-surface-variant)' }}>
+                  No recent transactions
+                </td>
+              </tr>
+            ) : (
+              transactions.map((tx, i) => {
+                const isCredit = tx.direction === 'credit'
+                const amountFormatted = `${isCredit ? '+' : '-'}${formatCurrency(tx.amount, tx.accounts?.currency)}`
+
+                return (
+                  <TransactionListItem
+                    key={tx.transaction_id}
+                    icon={tx.categories?.icon || 'receipt_long'}
+                    iconColor={isCredit ? 'secondary' : 'default'}
+                    name={tx.merchants?.name || tx.description || 'Unknown'}
+                    category={tx.categories?.name || 'Uncategorized'}
+                    date={formatDate(tx.date)}
+                    status={tx.status.toLowerCase()}
+                    amount={amountFormatted}
+                    positive={isCredit}
+                    last={i === transactions.length - 1}
+                  />
+                )
+              })
+            )}
           </tbody>
         </table>
       </div>

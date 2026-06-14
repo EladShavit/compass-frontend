@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Avatar from '../../Avatar/Avatar'
 import { auth } from '../../../lib/auth'
+import { useAuth } from '../../../context/AuthContext'
 import styles from './UserAvatar.module.css'
 
 const MENU_ITEMS = [
@@ -11,9 +12,18 @@ const MENU_ITEMS = [
   { icon: 'logout', label: 'Sign out' },
 ]
 
-export default function UserAvatar({ name = 'Alex Morgan', initials = 'AM', src }) {
+export default function UserAvatar({ src }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
+  const { profile, user } = useAuth()
+
+  const name = profile?.display_name || user?.email || 'User'
+  const initials = name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase()
 
   useEffect(() => {
     function handle(e) {
@@ -33,7 +43,7 @@ export default function UserAvatar({ name = 'Alex Morgan', initials = 'AM', src 
         aria-expanded={open}
         aria-label="User menu"
       >
-        <Avatar src={src} initials={initials} alt={name} size="md" />
+        <Avatar src={src || profile?.avatar_url} initials={initials} alt={name} size="md" />
         <span className={`material-symbols-outlined ${styles.chevron} ${open ? styles.open : ''}`}>
           expand_more
         </span>
@@ -42,10 +52,10 @@ export default function UserAvatar({ name = 'Alex Morgan', initials = 'AM', src 
       {open && (
         <div className={styles.menu} role="menu">
           <div className={styles.menuHeader}>
-            <Avatar src={src} initials={initials} alt={name} size="lg" />
+            <Avatar src={src || profile?.avatar_url} initials={initials} alt={name} size="lg" />
             <div>
               <p className={styles.menuName}>{name}</p>
-              <p className={styles.menuRole}>Investor</p>
+              <p className={styles.menuRole}>{profile?.tier === 'Pro' ? 'Pro Member' : 'Free Tier'}</p>
             </div>
           </div>
           <div className={styles.divider} />

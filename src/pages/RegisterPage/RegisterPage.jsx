@@ -60,6 +60,23 @@ export default function RegisterPage() {
 
       if (error) throw error
       
+      // Update the profiles table with the user's name
+      if (data?.user) {
+        // Extract first name (everything before the first space)
+        const firstName = fullName.split(' ')[0]
+        
+        // We use the real supabase client to hit the database directly, not the auth wrapper
+        // The trigger on the backend already created the row with user_id and email
+        const { supabase } = await import('../../lib/supabase')
+        await supabase
+          .from('profiles')
+          .update({ 
+            display_name: fullName,
+            first_name: firstName 
+          })
+          .eq('user_id', data.user.id)
+      }
+      
       // If Supabase requires email confirmation, it returns a user but no session
       if (data?.user && !data?.session) {
         setError('Account created! Please check your email to verify your account before logging in.')

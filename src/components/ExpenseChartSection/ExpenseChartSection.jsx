@@ -1,6 +1,6 @@
 import styles from './ExpenseChartSection.module.css'
 
-const BARS = [
+const FALLBACK_BARS = [
   { month: 'Jan', height: 40, value: '$8k',  color: 'default' },
   { month: 'Feb', height: 60, value: '$12k', color: 'default' },
   { month: 'Mar', height: 85, value: '$17k', color: 'tertiary' },
@@ -11,7 +11,20 @@ const BARS = [
 
 const Y_LABELS = ['$20k', '$10k', '$0']
 
-export default function ExpenseChartSection() {
+export default function ExpenseChartSection({ chartData = [] }) {
+  
+  // Format the real data if available, otherwise use fallback for visual testing
+  const bars = chartData.length > 0 ? chartData.map(d => {
+    // Assuming max value is around $20k for height %
+    const maxVal = 20000;
+    return {
+      month: d.period_label.substring(0, 3), // e.g., 'Oct'
+      height: Math.min((d.value / maxVal) * 100, 100),
+      value: `$${(d.value / 1000).toFixed(1)}k`,
+      color: 'default' // We could dynamically assign colors based on value or budget here
+    }
+  }) : FALLBACK_BARS
+
   return (
     <section className={styles.wrapper} aria-label="Spending Trends">
       {/* Header */}
@@ -41,8 +54,8 @@ export default function ExpenseChartSection() {
 
           {/* Bars */}
           <div className={styles.bars}>
-            {BARS.map((bar) => (
-              <div key={bar.month} className={styles.barCol}>
+            {bars.map((bar, i) => (
+              <div key={bar.month + i} className={styles.barCol}>
                 <div className={styles.tooltipWrap}>
                   <div
                     className={`${styles.bar} ${styles[`bar-${bar.color}`]}`}
