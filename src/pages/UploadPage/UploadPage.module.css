@@ -235,3 +235,7 @@
   font-size: var(--font-size-body-sm);
   color: var(--color-on-surface-variant);
 }
+
+@media (max-width: 768px) {
+  .main { padding: var(--space-md) var(--space-sm); }
+}

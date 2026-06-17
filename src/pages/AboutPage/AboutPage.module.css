@@ -84,3 +84,7 @@
 .personaText {
   color: var(--color-on-surface-variant);
 }
+
+@media (max-width: 768px) {
+  .page { padding: var(--space-md); }
+}

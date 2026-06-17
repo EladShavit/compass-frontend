@@ -85,3 +85,7 @@
   color: var(--color-on-surface-variant);
   tabular-nums: all;
 }
+
+@media (max-width: 768px) {
+  .page { padding: var(--space-md); }
+}

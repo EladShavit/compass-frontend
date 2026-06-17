@@ -29,6 +29,12 @@
   max-width: 360px;
 }
 
+@media (max-width: 768px) {
+  .searchWrap { max-width: 100%; min-width: 0; width: 100%; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .filters { flex-wrap: wrap; }
+}
+
 .filters {
   display: flex;
   gap: var(--space-sm);
@@ -79,4 +85,8 @@
 .error {
   color: var(--color-error);
   font-size: var(--font-size-body-md);
+}
+
+@media (max-width: 768px) {
+  .page { padding: var(--space-md); }
 }

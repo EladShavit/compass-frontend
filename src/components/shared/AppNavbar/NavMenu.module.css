@@ -31,3 +31,14 @@
 .itemIcon {
   font-size: 18px;
 }
+
+/* Hide on mobile (hamburger takes over) */
+@media (max-width: 768px) {
+  .menu { display: none; }
+}
+
+/* Medium screens: icons only, no text */
+@media (max-width: 960px) and (min-width: 769px) {
+  .item span:last-child { display: none; }
+  .item { padding: var(--space-xs) 10px; }
+}

@@ -126,3 +126,7 @@
   padding: var(--space-xl);
   min-height: 240px;
 }
+
+@media (max-width: 768px) {
+  .page { padding: var(--space-md); }
+}

@@ -7,7 +7,6 @@ const NAV_ITEMS = [
   { key: 'nav_alerts',    to: '/alerts',    icon: 'warning' },
   { key: 'nav_statements', to: '/upload',   icon: 'upload_file' },
   { key: 'nav_insights',  to: '/insights',  icon: 'auto_awesome' },
-  { key: 'nav_settings',  to: '/settings',  icon: 'settings' },
 ]
 
 export default function NavMenu() {
