@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import Button from '../../components/Button/Button'
 import { useLanguage } from '../../context/LanguageContext'
+import { useAuth } from '../../context/AuthContext'
 
 export default function LandingPage() {
   const { t } = useLanguage()
+  const { session, loading } = useAuth()
+
+  // If already logged in (e.g. after OAuth redirect), go straight to dashboard
+  if (!loading && session) return <Navigate to="/dashboard" replace />
   return (
     <div style={{ padding: 'var(--space-xl)', maxWidth: '1440px', margin: '0 auto', width: '100%', textAlign: 'center', marginTop: '10vh' }}>
       <h1 className="text-h1" style={{ fontSize: '3rem' }}>{t('landing_title')}</h1>
