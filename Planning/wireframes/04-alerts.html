@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass - Alerts Wireframe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="wireframe-nav">
+        <strong>Compass Wireframes - Low Fidelity</strong>
+        <div>
+            <a href="index.html">Index</a>
+            <a href="01-login.html">1. Login</a>
+            <a href="02-dashboard.html">2. Dashboard</a>
+            <a href="03-upload.html">3. Upload</a>
+            <a href="04-alerts.html" class="active">4. Alerts</a>
+        </div>
+    </div>
+
+    <div class="wireframe-container">
+        <div class="screen-title">Screen 4: ALERTS CENTER | URL: /alerts | Logged-in</div>
+
+        <div class="app-header">
+            <div class="logo">[LOGO]</div>
+            <ul class="nav-menu">
+                <li>Dashboard</li>
+                <li>Transactions</li>
+                <li class="active">Alerts (3)</li>
+                <li>Files</li>
+                <li>Insights</li>
+            </ul>
+            <div class="user-area">
+                <div class="icon-box">[Bell]</div>
+                <div class="avatar-circle">[User]</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <h1 style="font-size: 22px;">[ Page Title: Alerts Center ]</h1>
+                    <p style="font-size: 13px;">[ Subtitle ]</p>
+                </div>
+                <a href="#" class="btn btn-small">[Settings]</a>
+            </div>
+
+            <div class="grid grid-4" style="margin-bottom: 20px;">
+                <div class="stats-card">
+                    <div class="stats-number">[ # ]</div>
+                    <p class="stats-label">[ New ]</p>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">[ # ]</div>
+                    <p class="stats-label">[ In Progress ]</p>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">[ ### ]</div>
+                    <p class="stats-label">[ Saved This Month ]</p>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">[ ## ]</div>
+                    <p class="stats-label">[ Total ]</p>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <strong>[ Filter: ]</strong>
+                <span class="filter-chip active">[All]</span>
+                <span class="filter-chip">[New]</span>
+                <span class="filter-chip">[Duplicates]</span>
+                <span class="filter-chip">[Unusual Charges]</span>
+                <span class="filter-chip">[Opportunities]</span>
+                <span class="filter-chip">[Insurance]</span>
+                <input type="text" placeholder="[ Search ]" class="form-input" style="flex: 1; min-width: 150px;">
+            </div>
+
+            <div class="alert-item high">
+                <div class="alert-info">
+                    <h4>[!] [ Alert Title - HIGH severity ]
+                        <span class="tag tag-filled">[High]</span>
+                        <span class="tag">[New]</span>
+                    </h4>
+                    <p>[ Description of the alert ]</p>
+                    <p style="margin-top: 5px;">[ Additional details: dates, amounts ]</p>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn btn-primary btn-small">[Primary Action]</button>
+                    <button class="btn btn-small">[Dismiss]</button>
+                </div>
+            </div>
+
+            <div class="alert-item high">
+                <div class="alert-info">
+                    <h4>[!] [ Alert Title - HIGH severity ]
+                        <span class="tag tag-filled">[High]</span>
+                        <span class="tag">[New]</span>
+                    </h4>
+                    <p>[ Description of the alert ]</p>
+                    <p style="margin-top: 5px;">[ Additional info / hint ]</p>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn btn-primary btn-small">[Primary Action]</button>
+                    <button class="btn btn-small">[Dismiss]</button>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-info">
+                    <h4>[ Alert Title - MEDIUM severity ]
+                        <span class="tag">[Medium]</span>
+                        <span class="tag">[New]</span>
+                    </h4>
+                    <p>[ Description of the alert ]</p>
+                    <p style="margin-top: 5px;">[ Additional info / hint ]</p>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn btn-primary btn-small">[Primary Action]</button>
+                    <button class="btn btn-small">[Snooze]</button>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-info">
+                    <h4>[ Alert Title - LOW severity ]
+                        <span class="tag">[Low]</span>
+                        <span class="tag">[In Progress]</span>
+                    </h4>
+                    <p>[ Description of the alert ]</p>
+                    <p style="margin-top: 5px;">[ Potential savings ]</p>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn btn-primary btn-small">[Take Action]</button>
+                    <button class="btn btn-small">[Save]</button>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-info">
+                    <h4>[ Alert Title - MEDIUM severity ]
+                        <span class="tag">[Medium]</span>
+                    </h4>
+                    <p>[ Description of the alert ]</p>
+                    <p style="margin-top: 5px;">[ Hint / suggestion ]</p>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn btn-primary btn-small">[Compare]</button>
+                    <button class="btn btn-small">[Dismiss]</button>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="btn">[Previous]</button>
+                <button class="btn btn-primary">[1]</button>
+                <button class="btn">[2]</button>
+                <button class="btn">[3]</button>
+                <button class="btn">[Next]</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
