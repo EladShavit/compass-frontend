@@ -326,6 +326,31 @@ const TRANSLATIONS = {
     upload_import_n_transactions: 'Import {count} Transactions',
     upload_institution_select_label: '2. Financial Institution',
     upload_select_institution_placeholder: 'Select an institution...',
+    upload_parsing_csv: 'Reading file…',
+    upload_parse_csv: 'Continue to Column Mapping',
+    upload_map_columns: 'Confirm Mapping',
+    upload_step_map_columns: 'Map Columns',
+    upload_no_tx_found_csv: 'No valid rows found after applying the column mapping. Please check your column assignments.',
+
+    // Upload method selector
+    upload_method_label: 'Import Method',
+    upload_method_pdf_title: 'PDF Statement',
+    upload_method_pdf_desc: 'Bank or credit card PDF export',
+    upload_method_csv_title: 'CSV / Excel',
+    upload_method_csv_desc: 'Spreadsheet export from your bank',
+
+    // CSV column mapper
+    csv_map_title: 'Map Your Columns',
+    csv_map_subtitle: 'Tell us which column in your file matches each Compass field. We\'ve made our best guess — adjust if needed.',
+    csv_map_missing_fields: 'Still missing required fields',
+    csv_map_col_your_column: 'Your Column',
+    csv_map_col_sample: 'Sample Data',
+    csv_map_col_maps_to: 'Maps To',
+    csv_map_skip: '— Skip this column —',
+    csv_field_date: 'Date',
+    csv_field_amount: 'Amount',
+    csv_field_description: 'Description',
+    csv_field_direction: 'Direction (optional)',
 
     // Insights Page
     insights_title: 'Insights',
@@ -744,6 +769,29 @@ const TRANSLATIONS = {
     upload_import_n_transactions: 'ייבוא {count} תנועות',
     upload_institution_select_label: '2. מוסד פיננסי',
     upload_select_institution_placeholder: 'בחרו מוסד...',
+    upload_parsing_csv: 'קוראים את הקובץ…',
+    upload_parse_csv: 'המשך למיפוי עמודות',
+    upload_map_columns: 'אישור מיפוי',
+    upload_step_map_columns: 'מיפוי עמודות',
+    upload_no_tx_found_csv: 'לא נמצאו שורות תקינות לאחר המיפוי. בדקו את הגדרות העמודות.',
+
+    upload_method_label: 'שיטת ייבוא',
+    upload_method_pdf_title: 'דף חשבון PDF',
+    upload_method_pdf_desc: 'ייצוא PDF מהבנק או כרטיס האשראי',
+    upload_method_csv_title: 'CSV / Excel',
+    upload_method_csv_desc: 'ייצוא גיליון אלקטרוני מהבנק',
+
+    csv_map_title: 'מיפוי עמודות',
+    csv_map_subtitle: 'בחרו לאיזה שדה של Compass מתאימה כל עמודה בקובץ. עשינו ניחוש — תתקנו אם צריך.',
+    csv_map_missing_fields: 'שדות חובה חסרים',
+    csv_map_col_your_column: 'העמודה שלכם',
+    csv_map_col_sample: 'דוגמה',
+    csv_map_col_maps_to: 'ממופה ל',
+    csv_map_skip: '— דלג על עמודה זו —',
+    csv_field_date: 'תאריך',
+    csv_field_amount: 'סכום',
+    csv_field_description: 'תיאור',
+    csv_field_direction: 'כיוון (אופציונלי)',
 
     // Insights Page
     insights_title: 'תובנות',

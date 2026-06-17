@@ -2,9 +2,8 @@ import { useRef, useState } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import styles from './FileUploadSection.module.css'
 
-const ACCEPTED_TYPES = ['PDF', 'CSV', 'JPG/PNG']
-
-export default function FileUploadSection({ file, onFileChange }) {
+export default function FileUploadSection({ file, onFileChange, accept = '.pdf,.csv,.jpg,.jpeg,.png' }) {
+  const acceptedTypes = accept.split(',').map(e => e.replace('.', '').toUpperCase().replace('JPEG', 'JPG'))
   const { t } = useLanguage()
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef(null)
@@ -51,7 +50,7 @@ export default function FileUploadSection({ file, onFileChange }) {
         <input
           ref={inputRef}
           type="file"
-          accept=".pdf,.csv,.jpg,.jpeg,.png"
+          accept={accept}
           className={styles.hiddenInput}
           onChange={handleInputChange}
           tabIndex={-1}
@@ -83,7 +82,7 @@ export default function FileUploadSection({ file, onFileChange }) {
           )}
 
           <div className={styles.chips}>
-            {ACCEPTED_TYPES.map((type) => (
+            {acceptedTypes.map((type) => (
               <span key={type} className={styles.chip}>{type}</span>
             ))}
             <span className={styles.maxSize}>{t('upload_max_size')}</span>
