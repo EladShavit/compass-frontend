@@ -11,12 +11,13 @@ import { auth } from '../../../lib/auth'
 import styles from './AppNavbar.module.css'
 
 const MOBILE_NAV_ITEMS = [
-  { key: 'nav_dashboard',  to: '/dashboard',  icon: 'dashboard' },
-  { key: 'nav_alerts',     to: '/alerts',     icon: 'warning' },
-  { key: 'nav_statements', to: '/upload',     icon: 'upload_file' },
-  { key: 'nav_insights',   to: '/insights',   icon: 'auto_awesome' },
-  { key: 'usermenu_profile',  to: '/profile', icon: 'person' },
-  { key: 'usermenu_settings', to: '/settings', icon: 'settings' },
+  { key: 'nav_dashboard',    to: '/dashboard',    icon: 'dashboard' },
+  { key: 'nav_transactions', to: '/transactions', icon: 'receipt_long' },
+  { key: 'nav_alerts',       to: '/alerts',       icon: 'warning' },
+  { key: 'nav_statements',   to: '/upload',       icon: 'upload_file' },
+  { key: 'nav_insights',     to: '/insights',     icon: 'auto_awesome' },
+  { key: 'usermenu_profile',  to: '/profile',    icon: 'person' },
+  { key: 'usermenu_settings', to: '/settings',   icon: 'settings' },
 ]
 
 export default function AppNavbar() {
@@ -55,7 +56,7 @@ export default function AppNavbar() {
         <Logo />
         <NavMenu />
         <div className={styles.actions}>
-          <NotificationBell count={unreadCount} onClick={() => navigate('/alerts')} />
+          <NotificationBell count={unreadCount} alerts={alerts} />
           <UserAvatar />
         </div>
 
@@ -85,7 +86,7 @@ export default function AppNavbar() {
                 {profile?.tier === 'Pro' ? t('usermenu_pro') : t('usermenu_free')}
               </div>
             </div>
-            <NotificationBell count={unreadCount} onClick={() => { navigate('/alerts'); setMobileOpen(false) }} />
+            <NotificationBell count={unreadCount} alerts={alerts} />
           </div>
 
           {/* Nav links */}

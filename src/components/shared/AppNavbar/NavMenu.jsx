@@ -3,10 +3,11 @@ import { useLanguage } from '../../../context/LanguageContext'
 import styles from './NavMenu.module.css'
 
 const NAV_ITEMS = [
-  { key: 'nav_dashboard', to: '/dashboard', icon: 'dashboard' },
-  { key: 'nav_alerts',    to: '/alerts',    icon: 'warning' },
-  { key: 'nav_statements', to: '/upload',   icon: 'upload_file' },
-  { key: 'nav_insights',  to: '/insights',  icon: 'auto_awesome' },
+  { key: 'nav_dashboard',     to: '/dashboard',     icon: 'dashboard' },
+  { key: 'nav_transactions',  to: '/transactions',  icon: 'receipt_long' },
+  { key: 'nav_alerts',        to: '/alerts',        icon: 'warning' },
+  { key: 'nav_statements',    to: '/upload',        icon: 'upload_file' },
+  { key: 'nav_insights',      to: '/insights',      icon: 'auto_awesome' },
 ]
 
 export default function NavMenu() {

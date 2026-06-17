@@ -24,30 +24,6 @@ export default function ContactPage() {
       </header>
 
       <div className={styles.layout}>
-        <div className={styles.info}>
-          <div className={styles.infoItem}>
-            <span className={`material-symbols-outlined ${styles.infoIcon}`}>mail</span>
-            <div>
-              <p className={styles.infoLabel}>{t('contact_email_label')}</p>
-              <p className={styles.infoValue}>support@compass-finance.app</p>
-            </div>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={`material-symbols-outlined ${styles.infoIcon}`}>schedule</span>
-            <div>
-              <p className={styles.infoLabel}>{t('contact_hours_label')}</p>
-              <p className={styles.infoValue}>{t('contact_hours_value')}</p>
-            </div>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={`material-symbols-outlined ${styles.infoIcon}`}>location_on</span>
-            <div>
-              <p className={styles.infoLabel}>{t('contact_location_label')}</p>
-              <p className={styles.infoValue}>Tel Aviv, Israel</p>
-            </div>
-          </div>
-        </div>
-
         <form className={styles.form} onSubmit={handleSubmit}>
           {sent ? (
             <div className={styles.success}>
@@ -76,6 +52,30 @@ export default function ContactPage() {
             </>
           )}
         </form>
+
+        <div className={styles.info}>
+          <div className={styles.infoItem}>
+            <span className={`material-symbols-outlined ${styles.infoIcon}`}>mail</span>
+            <div>
+              <p className={styles.infoLabel}>{t('contact_email_label')}</p>
+              <p className={styles.infoValue}>support@compass-finance.app</p>
+            </div>
+          </div>
+          <div className={styles.infoItem}>
+            <span className={`material-symbols-outlined ${styles.infoIcon}`}>schedule</span>
+            <div>
+              <p className={styles.infoLabel}>{t('contact_hours_label')}</p>
+              <p className={styles.infoValue}>{t('contact_hours_value')}</p>
+            </div>
+          </div>
+          <div className={styles.infoItem}>
+            <span className={`material-symbols-outlined ${styles.infoIcon}`}>location_on</span>
+            <div>
+              <p className={styles.infoLabel}>{t('contact_location_label')}</p>
+              <p className={styles.infoValue}>Tel Aviv, Israel</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

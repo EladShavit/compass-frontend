@@ -57,7 +57,7 @@ export default function InsightsPage() {
             {t('insights_subtitle')}
           </p>
         </header>
-        <ProGate feature="AI-Powered Insights">
+        <ProGate featureKey="progate_insights_feature">
           <div style={{ height: 320 }} />
         </ProGate>
       </div>

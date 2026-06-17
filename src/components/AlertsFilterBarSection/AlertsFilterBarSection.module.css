@@ -12,8 +12,12 @@
   gap: var(--space-sm);
 }
 
-.sortBtn {
+.sortWrap {
   margin-left: auto;
+  position: relative;
+}
+
+.sortBtn {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-default);
   font-family: var(--font-family-base);
@@ -23,12 +27,56 @@
   border: 1px solid transparent;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 6px;
   cursor: pointer;
-  transition: color 150ms, border-color 150ms;
+  transition: color 150ms, border-color 150ms, background 150ms;
+  white-space: nowrap;
 }
 
 .sortBtn:hover {
   color: var(--color-on-background);
-  border-color: color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  border-color: var(--color-outline-variant);
+}
+
+.sortBtnActive {
+  color: var(--color-on-surface);
+  border-color: var(--color-outline-variant);
+  background: var(--color-surface-container-high);
+}
+
+.sortDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 100;
+  min-width: 180px;
+  background: var(--color-surface-container-highest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  padding: var(--space-xs) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sortItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-md);
+  background: none;
+  border: none;
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  cursor: pointer;
+  text-align: start;
+  transition: background 100ms;
+}
+
+.sortItem:hover { background: var(--color-surface-container-high); }
+
+.sortItemActive {
+  color: var(--color-secondary);
+  font-weight: 600;
 }

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useAlerts } from '../../hooks/useAlerts'
 import { useTransactions } from '../../hooks/useTransactions'
 import { generateAlerts } from '../../lib/alertGenerator'
@@ -13,19 +13,48 @@ import styles from './AlertsPage.module.css'
 export default function AlertsPage() {
   const { t } = useLanguage()
   const [activeFilter, setActiveFilter] = useState('all')
+  const [sortOrder, setSortOrder] = useState('priority')
   const [currentPage, setCurrentPage] = useState(1)
-  const [dismissed, setDismissed] = useState(new Set())
+  // Persist dismissed generated-alert IDs in localStorage so they survive navigation
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      const saved = localStorage.getItem('compass_dismissed_alerts')
+      return new Set(saved ? JSON.parse(saved) : [])
+    } catch { return new Set() }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('compass_dismissed_alerts', JSON.stringify([...dismissed]))
+    } catch {}
+  }, [dismissed])
 
   const { alerts: dbAlerts, loading: alertsLoading, dismissAlert: dbDismiss } = useAlerts(null)
   const { transactions, loading: txLoading } = useTransactions(500)
 
   const loading = alertsLoading || txLoading
 
-  // Merge DB alerts with client-generated alerts, remove dismissed
+  // Generate client alerts only when transactions change (stable IDs across re-renders)
+  const generated = useMemo(() => generateAlerts(transactions), [transactions])
+
+  const SEVERITY_RANK = { critical: 0, warning: 1, opportunity: 2 }
+
+  // Merge, filter dismissed, and sort
   const alerts = useMemo(() => {
-    const generated = generateAlerts(transactions)
-    return [...dbAlerts, ...generated].filter(a => !dismissed.has(a.alert_id))
-  }, [dbAlerts, transactions, dismissed])
+    const merged = [...dbAlerts, ...generated].filter(a => !dismissed.has(a.alert_id))
+    if (sortOrder === 'priority') {
+      return [...merged].sort((a, b) => {
+        const ra = SEVERITY_RANK[a.alert_categories?.default_severity?.toLowerCase()] ?? 3
+        const rb = SEVERITY_RANK[b.alert_categories?.default_severity?.toLowerCase()] ?? 3
+        return ra - rb
+      })
+    }
+    if (sortOrder === 'oldest') {
+      return [...merged].sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+    }
+    // newest (default from DB order)
+    return [...merged].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  }, [dbAlerts, generated, dismissed, sortOrder])
 
   function dismissAlert(id) {
     setDismissed(prev => new Set([...prev, id]))
@@ -65,6 +94,8 @@ export default function AlertsPage() {
           <AlertsFilterBarSection
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
+            sortOrder={sortOrder}
+            onSortChange={setSortOrder}
           />
           <AlertsListSection 
             activeFilter={activeFilter} 

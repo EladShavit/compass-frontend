@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useTransactions } from '../../hooks/useTransactions'
 import RecentTransactionsSection from '../../components/RecentTransactionsSection/RecentTransactionsSection'
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
 import Input from '../../components/Input/Input'
+import ManualEntryForm from '../../components/ManualEntryForm/ManualEntryForm'
 import { useLanguage } from '../../context/LanguageContext'
 import styles from './TransactionsPage.module.css'
 
 export default function TransactionsPage() {
   const { t } = useLanguage()
-  const { transactions, loading, error } = useTransactions(200)
+  const { transactions, loading, error, refetch } = useTransactions(200)
   const [search, setSearch] = useState('')
   const [directionFilter, setDirectionFilter] = useState('all')
+  const [showManual, setShowManual] = useState(false)
 
   const filtered = transactions.filter((tx) => {
     const name = (tx.merchants?.name || tx.description || '').toLowerCase()
@@ -19,6 +21,10 @@ export default function TransactionsPage() {
     const matchesDirection = directionFilter === 'all' || tx.direction === directionFilter
     return matchesSearch && matchesDirection
   })
+
+  const handleSaved = useCallback(() => {
+    refetch()
+  }, [refetch])
 
   if (loading) return <LoadingSpinner />
 
@@ -31,6 +37,14 @@ export default function TransactionsPage() {
             {transactions.length} {t('tx_page_total')}
           </p>
         </div>
+        <button
+          type="button"
+          className={styles.addBtn}
+          onClick={() => setShowManual(true)}
+        >
+          <span className="material-symbols-outlined">add</span>
+          {t('tx_add_btn')}
+        </button>
       </header>
 
       <div className={styles.toolbar}>
@@ -62,11 +76,17 @@ export default function TransactionsPage() {
       )}
 
       <div className={styles.tableWrap}>
-        <RecentTransactionsSection transactions={filtered} />
+        <RecentTransactionsSection transactions={filtered} hideMore />
         {filtered.length === 0 && !loading && (
           <p className={styles.empty}>{t('tx_no_match')}</p>
         )}
       </div>
+
+      <ManualEntryForm
+        open={showManual}
+        onClose={() => setShowManual(false)}
+        onSaved={handleSaved}
+      />
     </div>
   )
 }

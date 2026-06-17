@@ -9,8 +9,9 @@ const LARGE_TX_ILS = 500       // single transaction above this → warning
 const HIGH_CATEGORY_ILS = 2000 // category total above this → opportunity
 const DUP_DAYS = 7             // window to detect duplicate charges
 
-let _idCounter = 0
-function uid() { return `gen-${++_idCounter}` }
+function stableId(...parts) {
+  return 'gen-' + parts.join('|').replace(/\s+/g, '-').toLowerCase().slice(0, 80)
+}
 
 /**
  * @param {Array} transactions – raw rows from `transactions` table
@@ -37,7 +38,7 @@ export function generateAlerts(transactions = []) {
         if (diff <= DUP_DAYS) {
           const [merchant] = key.split('|')
           alerts.push({
-            alert_id: uid(),
+            alert_id: stableId('dup', merchant, txs[i].amount),
             title: `Possible duplicate charge — ${merchant}`,
             description: `₪${Number(txs[i].amount).toFixed(2)} charged twice within ${Math.round(diff) || 1} day(s). Review to confirm both are legitimate.`,
             status: 'New',
@@ -60,7 +61,7 @@ export function generateAlerts(transactions = []) {
 
   for (const tx of bigTxs) {
     alerts.push({
-      alert_id: uid(),
+      alert_id: stableId('large', tx.description, tx.amount, tx.date),
       title: `Large charge: ₪${Number(tx.amount).toFixed(2)} at ${tx.description}`,
       description: `A transaction of ₪${Number(tx.amount).toFixed(2)} on ${tx.date} is above your usual spending threshold. Tap Review to confirm.`,
       status: 'New',
@@ -85,7 +86,7 @@ export function generateAlerts(transactions = []) {
 
   for (const [cat, total] of topCategories) {
     alerts.push({
-      alert_id: uid(),
+      alert_id: stableId('cat', cat),
       title: `High ${cat} spending — ₪${total.toFixed(0)} total`,
       description: `Your ${cat} expenses total ₪${total.toFixed(0)}. Consider reviewing subscriptions or setting a budget to reduce costs.`,
       status: 'New',

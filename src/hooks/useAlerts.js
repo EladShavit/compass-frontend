@@ -24,10 +24,12 @@ export function useAlerts(statusFilter = null) {
             )
           `)
           
+        // Always exclude dismissed; caller can further narrow by status
+        query = query.neq('status', 'Dismissed')
         if (statusFilter) {
           query = query.eq('status', statusFilter)
         }
-        
+
         const { data, error } = await query.order('created_at', { ascending: false })
 
         if (error) throw error

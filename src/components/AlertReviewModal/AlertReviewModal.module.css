@@ -1,0 +1,110 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.iconRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.icon { font-size: 32px !important; }
+
+.tag {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+}
+
+.title {
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.desc {
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-body-md);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.recommendation {
+  display: flex;
+  gap: var(--space-md);
+  background: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface-container));
+  border: 1px solid color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.recIcon {
+  font-size: 20px !important;
+  color: var(--color-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.recLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+  margin: 0 0 4px;
+}
+
+.recText {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--color-outline);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.closeBtn {
+  padding: 9px 20px;
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.closeBtn:hover { background: var(--color-surface-container-highest); }
+
+.dismissBtn {
+  padding: 9px 20px;
+  background: color-mix(in srgb, var(--color-error) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-error) 30%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.dismissBtn:hover { background: color-mix(in srgb, var(--color-error) 20%, transparent); }

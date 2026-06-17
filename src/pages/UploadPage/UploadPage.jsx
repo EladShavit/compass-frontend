@@ -335,6 +335,10 @@ export default function UploadPage() {
           <div>
             <h1 className={`text-h1 ${styles.pageTitle}`}>{t('upload_page_title')}</h1>
             <p className={styles.pageSubtitle}>{t('upload_page_subtitle')}</p>
+            <p className={styles.manualTip}>
+              {t('upload_manual_tip')}{' '}
+              <Link to="/transactions" className={styles.manualTipLink}>{t('upload_manual_tip_link')} →</Link>
+            </p>
           </div>
           <StepperSection steps={STEPS} currentStep={step} />
         </section>
