@@ -1,6 +1,8 @@
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './PageHeaderSection.module.css'
 
 export default function PageHeaderSection({ onCancel }) {
+  const { t } = useLanguage()
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -18,7 +20,7 @@ export default function PageHeaderSection({ onCancel }) {
         {/* Cancel button */}
         <button type="button" className={styles.cancelBtn} onClick={onCancel}>
           <span className="material-symbols-outlined" style={{ fontSize: 20 }}>close</span>
-          <span>Cancel Upload</span>
+          <span>{t('upload_cancel')}</span>
         </button>
       </div>
     </header>

@@ -1,0 +1,37 @@
+.page {
+  padding: var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero {
+  margin-bottom: var(--space-xl);
+}
+
+.subtitle {
+  margin-top: var(--space-md);
+  color: var(--color-on-surface-variant);
+}
+
+.section {
+  margin-bottom: var(--space-xl);
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-md);
+  color: var(--color-on-surface);
+}
+
+.bodyText {
+  color: var(--color-on-surface-variant);
+  line-height: 1.7;
+}
+
+.updated {
+  font-size: 0.8rem;
+  color: var(--color-on-surface-variant);
+  margin-top: var(--space-xl);
+  border-top: 1px solid var(--color-outline-variant);
+  padding-top: var(--space-md);
+}

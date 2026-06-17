@@ -21,7 +21,7 @@
 .progress {
   position: absolute;
   top: 28px;
-  right: 5%;
+  left: 5%;
   height: 2px;
   background-color: var(--color-secondary);
   z-index: 0;

@@ -84,4 +84,19 @@ export const auth = {
     }
     return supabase.auth.signOut()
   },
+
+  async signInWithGoogle() {
+    if (USE_MOCK_AUTH) {
+      const session = {
+        user: { id: 'mock-user-id', email: 'mock-google-user@example.com' },
+        access_token: 'mock-access-token',
+      }
+      setMockSession(session)
+      return { data: { session }, error: null }
+    }
+    return supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/dashboard` },
+    })
+  },
 }

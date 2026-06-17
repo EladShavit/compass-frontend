@@ -1,3 +1,4 @@
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './AlertsBannerSection.module.css'
 
 const DEFAULT_ALERTS = [
@@ -22,6 +23,7 @@ const TYPE_CLASSES = {
 }
 
 export default function AlertsBannerSection({ alerts = DEFAULT_ALERTS, onDismiss }) {
+  const { t } = useLanguage()
   if (!alerts.length) return null
 
   return (
@@ -39,7 +41,7 @@ export default function AlertsBannerSection({ alerts = DEFAULT_ALERTS, onDismiss
               type="button"
               className={styles.dismissBtn}
               onClick={() => onDismiss(alert.id)}
-              aria-label="Dismiss alert"
+              aria-label={t('alerts_dismiss_aria')}
             >
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>close</span>
             </button>

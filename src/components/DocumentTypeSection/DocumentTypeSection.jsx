@@ -1,18 +1,21 @@
 import DocTypeCard from '../DocTypeCard/DocTypeCard'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './DocumentTypeSection.module.css'
 
-const DOC_TYPES = [
-  { id: 'bank',    icon: 'account_balance', title: 'Bank Statement', description: 'Monthly account summaries' },
-  { id: 'tax',     icon: 'request_quote',   title: 'Tax Document',   description: 'W-2, 1099, or returns' },
-  { id: 'invoice', icon: 'receipt_long',    title: 'Invoice',        description: 'Vendor or client bills' },
-  { id: 'other',   icon: 'folder_open',     title: 'Other',          description: 'Contracts and notices' },
-]
-
 export default function DocumentTypeSection({ value, onChange }) {
+  const { t } = useLanguage()
+
+  const DOC_TYPES = [
+    { id: 'bank',    icon: 'account_balance', title: t('doc_type_bank_title'),    description: t('doc_type_bank_desc') },
+    { id: 'tax',     icon: 'request_quote',   title: t('doc_type_tax_title'),     description: t('doc_type_tax_desc') },
+    { id: 'invoice', icon: 'receipt_long',    title: t('doc_type_invoice_title'), description: t('doc_type_invoice_desc') },
+    { id: 'other',   icon: 'folder_open',     title: t('doc_type_other_title'),   description: t('doc_type_other_desc') },
+  ]
+
   return (
     <div className={styles.wrapper}>
       <label className={`text-label-caps ${styles.sectionLabel}`}>
-        1. Document Type
+        {t('upload_doc_type_label')}
       </label>
       <div className={styles.grid}>
         {DOC_TYPES.map((dt) => (

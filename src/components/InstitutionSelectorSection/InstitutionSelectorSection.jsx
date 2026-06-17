@@ -1,3 +1,4 @@
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './InstitutionSelectorSection.module.css'
 
 const INSTITUTIONS = [
@@ -9,10 +10,11 @@ const INSTITUTIONS = [
 ]
 
 export default function InstitutionSelectorSection({ value, onChange }) {
+  const { t } = useLanguage()
   return (
     <div className={styles.wrapper}>
       <label className={`text-label-caps ${styles.sectionLabel}`} htmlFor="institution-select">
-        2. Financial Institution
+        {t('upload_institution_select_label')}
       </label>
       <div className={styles.selectWrap}>
         <select
@@ -21,7 +23,7 @@ export default function InstitutionSelectorSection({ value, onChange }) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
-          <option value="" disabled>Select an institution...</option>
+          <option value="" disabled>{t('upload_select_institution_placeholder')}</option>
           {INSTITUTIONS.map((inst) => (
             <option key={inst.value} value={inst.value}>{inst.label}</option>
           ))}

@@ -1,21 +1,24 @@
 import AlertItem from '../AlertItem/AlertItem'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './AlertsListSection.module.css'
 
 export default function AlertsListSection({ activeFilter = 'all', alerts = [], onDismiss }) {
+  const { t } = useLanguage()
   // We need to map our activeFilter categories (critical, opportunities, duplicates)
   // to the DB alert_categories if needed, but for simplicity we can filter based on severity
   
-  const mapSeverityToFilter = (severity) => {
-    const s = severity?.toLowerCase()
+  const getAlertType = (a) => {
+    if (a._type) return a._type  // generated client-side alert
+    const s = a.alert_categories?.default_severity?.toLowerCase()
     if (s === 'critical') return 'critical'
     if (s === 'opportunity') return 'opportunities'
     if (s === 'warning') return 'duplicates'
-    return 'all'
+    return 'other'
   }
 
   const filtered = activeFilter === 'all'
     ? alerts
-    : alerts.filter((a) => mapSeverityToFilter(a.alert_categories?.default_severity) === activeFilter)
+    : alerts.filter((a) => getAlertType(a) === activeFilter)
 
   const formatTimestamp = (dateStr) => {
     return new Date(dateStr).toLocaleDateString()
@@ -36,7 +39,7 @@ export default function AlertsListSection({ activeFilter = 'all', alerts = [], o
           <span className="material-symbols-outlined" style={{ fontSize: 48, color: 'var(--color-outline)' }}>
             check_circle
           </span>
-          <p>No alerts in this category.</p>
+          <p>{t('alerts_none_in_category')}</p>
         </div>
       ) : (
         filtered.map((alert) => {
@@ -52,9 +55,9 @@ export default function AlertsListSection({ activeFilter = 'all', alerts = [], o
               timestamp={formatTimestamp(alert.created_at)}
               title={alert.title}
               description={alert.description}
-              primaryLabel="Review"
+              primaryLabel={t('alerts_review')}
               primaryVariant={color}
-              secondaryLabel="Dismiss"
+              secondaryLabel={t('alerts_dismiss')}
               onSecondaryClick={() => onDismiss && onDismiss(alert.alert_id)}
             />
           )

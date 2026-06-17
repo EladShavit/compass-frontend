@@ -1,18 +1,36 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useAlerts } from '../../hooks/useAlerts'
+import { useTransactions } from '../../hooks/useTransactions'
+import { generateAlerts } from '../../lib/alertGenerator'
 import AlertStatsSection from '../../components/AlertStatsSection/AlertStatsSection'
 import AlertsFilterBarSection from '../../components/AlertsFilterBarSection/AlertsFilterBarSection'
 import AlertsListSection from '../../components/AlertsListSection/AlertsListSection'
 import PaginationSection from '../../components/PaginationSection/PaginationSection'
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './AlertsPage.module.css'
 
 export default function AlertsPage() {
+  const { t } = useLanguage()
   const [activeFilter, setActiveFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
-  
-  // Pass null to fetch all alerts regardless of status
-  const { alerts, loading, dismissAlert } = useAlerts(null)
+  const [dismissed, setDismissed] = useState(new Set())
+
+  const { alerts: dbAlerts, loading: alertsLoading, dismissAlert: dbDismiss } = useAlerts(null)
+  const { transactions, loading: txLoading } = useTransactions(500)
+
+  const loading = alertsLoading || txLoading
+
+  // Merge DB alerts with client-generated alerts, remove dismissed
+  const alerts = useMemo(() => {
+    const generated = generateAlerts(transactions)
+    return [...dbAlerts, ...generated].filter(a => !dismissed.has(a.alert_id))
+  }, [dbAlerts, transactions, dismissed])
+
+  function dismissAlert(id) {
+    setDismissed(prev => new Set([...prev, id]))
+    dbDismiss(id) // no-op for generated alerts (no DB row)
+  }
 
   if (loading) {
     return (
@@ -28,14 +46,14 @@ export default function AlertsPage() {
         {/* Page Header */}
         <header className={styles.header}>
           <div className={styles.headerText}>
-            <h2 className="text-h1">Alerts Center</h2>
+            <h2 className="text-h1">{t('alerts_page_title')}</h2>
             <p className={styles.subtitle}>
-              Monitor and manage critical account notifications, optimization opportunities, and security events requiring your attention.
+              {t('alerts_page_subtitle')}
             </p>
           </div>
           <div className={styles.statusPill}>
             <span className={styles.statusDot} aria-hidden="true" />
-            System Status: <span className={styles.statusStrong}>Optimal</span>
+            {t('alerts_system_status')} <span className={styles.statusStrong}>{t('alerts_status_optimal')}</span>
           </div>
         </header>
 

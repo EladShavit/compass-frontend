@@ -1,10 +1,11 @@
 import Tag from '../Tag/Tag'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './TransactionListItem.module.css'
 
 const STATUS_CONFIG = {
-  completed: { label: 'Completed', color: 'neutral' },
-  pending:   { label: 'Pending',   color: 'tertiary' },
-  failed:    { label: 'Failed',    color: 'error' },
+  completed: { labelKey: 'tx_status_completed', color: 'neutral' },
+  pending:   { labelKey: 'tx_status_pending',   color: 'tertiary' },
+  failed:    { labelKey: 'tx_status_failed',    color: 'error' },
 }
 
 export default function TransactionListItem({
@@ -18,7 +19,9 @@ export default function TransactionListItem({
   positive = false,
   last = false,
 }) {
-  const { label, color } = STATUS_CONFIG[status] ?? STATUS_CONFIG.completed
+  const { t } = useLanguage()
+  const { labelKey, color } = STATUS_CONFIG[status] ?? STATUS_CONFIG.completed
+  const label = t(labelKey)
 
   return (
     <tr className={`${styles.row} ${last ? styles.last : ''}`}>
@@ -28,7 +31,7 @@ export default function TransactionListItem({
           <span className="material-symbols-outlined">{icon}</span>
         </div>
         <div>
-          <p className={styles.name}>{name}</p>
+          <p className={styles.name} dir="auto">{name}</p>
           <p className={styles.category}>{category}</p>
         </div>
       </td>

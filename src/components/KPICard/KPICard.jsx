@@ -1,17 +1,6 @@
+import { useState } from 'react'
 import styles from './KPICard.module.css'
 
-/**
- * KPICard — dashboard metric card
- *
- * Props:
- *  icon        string  – Material Symbol name
- *  iconColor   'primary' | 'secondary' | 'tertiary' | 'error'
- *  label       string  – ALLCAPS label above value
- *  value       string  – formatted metric value
- *  badge       string? – e.g. "↑ 2.4%" — shown as a pill in top-right
- *  badgeColor  'secondary' | 'error' | 'tertiary'
- *  wide        bool    – span 2 columns (bento layout)
- */
 export default function KPICard({
   icon,
   iconColor = 'primary',
@@ -19,9 +8,12 @@ export default function KPICard({
   value,
   badge,
   badgeColor = 'secondary',
+  tooltip,
   wide = false,
   className = '',
 }) {
+  const [tipVisible, setTipVisible] = useState(false)
+
   return (
     <div className={`${styles.card} ${wide ? styles.wide : ''} ${className}`}>
       {/* Ambient orb */}
@@ -32,14 +24,32 @@ export default function KPICard({
         <div className={`${styles.iconBox} ${styles[`icon-${iconColor}`]}`}>
           <span className="material-symbols-outlined">{icon}</span>
         </div>
-        {badge && (
-          <span className={`${styles.badge} ${styles[`badge-${badgeColor}`]}`}>
-            <span className={`material-symbols-outlined ${styles.badgeIcon}`}>
-              {badgeColor === 'error' ? 'arrow_downward' : 'arrow_upward'}
+
+        <div className={styles.topRight}>
+          {badge && (
+            <span className={`${styles.badge} ${styles[`badge-${badgeColor}`]}`}>
+              <span className={`material-symbols-outlined ${styles.badgeIcon}`}>
+                {badgeColor === 'error' ? 'arrow_downward' : 'arrow_upward'}
+              </span>
+              {badge}
             </span>
-            {badge}
-          </span>
-        )}
+          )}
+          {tooltip && (
+            <div
+              className={styles.infoWrap}
+              onMouseEnter={() => setTipVisible(true)}
+              onMouseLeave={() => setTipVisible(false)}
+              aria-label="More information"
+            >
+              <span className={`material-symbols-outlined ${styles.infoIcon}`}>info</span>
+              {tipVisible && (
+                <div className={styles.tooltip} role="tooltip">
+                  {tooltip}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Bottom content */}

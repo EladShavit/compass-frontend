@@ -1,15 +1,17 @@
 import { NavLink } from 'react-router-dom'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './NavMenu.module.css'
 
 const NAV_ITEMS = [
-  { label: 'Dashboard',        to: '/dashboard', icon: 'dashboard' },
-  { label: 'Alerts Center',    to: '/alerts',    icon: 'warning' },
-  { label: 'Statements',       to: '/upload',    icon: 'upload_file' },
-  { label: 'Portfolio',        to: '/portfolio', icon: 'account_balance_wallet' },
-  { label: 'Account Settings', to: '/settings',  icon: 'settings' },
+  { key: 'nav_dashboard', to: '/dashboard', icon: 'dashboard' },
+  { key: 'nav_alerts',    to: '/alerts',    icon: 'warning' },
+  { key: 'nav_statements', to: '/upload',   icon: 'upload_file' },
+  { key: 'nav_insights',  to: '/insights',  icon: 'auto_awesome' },
+  { key: 'nav_settings',  to: '/settings',  icon: 'settings' },
 ]
 
 export default function NavMenu() {
+  const { t } = useLanguage()
   return (
     <nav className={styles.menu} aria-label="Main navigation">
       {NAV_ITEMS.map((item) => (
@@ -21,7 +23,7 @@ export default function NavMenu() {
           }
         >
           <span className={`material-symbols-outlined ${styles.itemIcon}`}>{item.icon}</span>
-          <span>{item.label}</span>
+          <span>{t(item.key)}</span>
         </NavLink>
       ))}
     </nav>

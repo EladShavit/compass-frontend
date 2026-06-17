@@ -15,7 +15,8 @@ export default function DashboardPage() {
   const { profile, user } = useAuth()
   const { alerts, loading: loadingAlerts, dismissAlert } = useAlerts('New')
   const { accounts, loading: loadingAccounts } = useAccounts()
-  const { transactions, loading: loadingTransactions } = useTransactions(5)
+  const { transactions: recentTransactions, loading: loadingTransactions } = useTransactions(5)
+  const { transactions: allTransactions } = useTransactions(500)
   const { chartData, loading: loadingChart } = useChartData()
 
   // Use the profile first name, or display name, or fallback to User
@@ -50,11 +51,11 @@ export default function DashboardPage() {
 
         <AlertsBannerSection alerts={formattedAlerts} onDismiss={dismissAlert} />
 
-        <KPIStatsSection accounts={accounts} />
+        <KPIStatsSection accounts={accounts} transactions={allTransactions} />
 
         <ChartsRowSection chartData={chartData} />
 
-        <RecentTransactionsSection transactions={transactions} />
+        <RecentTransactionsSection transactions={recentTransactions} />
       </main>
     </div>
   )

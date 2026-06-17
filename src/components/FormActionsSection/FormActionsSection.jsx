@@ -1,7 +1,11 @@
 import Button from '../Button/Button'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './FormActionsSection.module.css'
 
-export default function FormActionsSection({ onCancel, onContinue, disabled = false }) {
+export default function FormActionsSection({ onCancel, onContinue, disabled = false, cancelLabel, continueLabel }) {
+  const { t } = useLanguage()
+  const resolvedCancelLabel = cancelLabel ?? t('upload_cancel_action')
+  const resolvedContinueLabel = continueLabel ?? t('upload_continue_to_review')
   return (
     <div className={styles.bar}>
       <Button
@@ -10,7 +14,7 @@ export default function FormActionsSection({ onCancel, onContinue, disabled = fa
         onClick={onCancel}
         id="upload-cancel-btn"
       >
-        Cancel
+        {resolvedCancelLabel}
       </Button>
       <Button
         variant="primary"
@@ -21,7 +25,7 @@ export default function FormActionsSection({ onCancel, onContinue, disabled = fa
         disabled={disabled}
         id="upload-continue-btn"
       >
-        Continue to Review
+        {resolvedContinueLabel}
       </Button>
     </div>
   )

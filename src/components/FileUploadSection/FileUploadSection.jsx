@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './FileUploadSection.module.css'
 
 const ACCEPTED_TYPES = ['PDF', 'CSV', 'JPG/PNG']
-const MAX_SIZE_LABEL = 'Max 50MB'
 
 export default function FileUploadSection({ file, onFileChange }) {
+  const { t } = useLanguage()
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef(null)
 
@@ -31,7 +32,7 @@ export default function FileUploadSection({ file, onFileChange }) {
   return (
     <div className={styles.wrapper}>
       <label className={`text-label-caps ${styles.sectionLabel}`}>
-        3. File Upload
+        {t('upload_file_label')}
       </label>
 
       <div
@@ -69,23 +70,23 @@ export default function FileUploadSection({ file, onFileChange }) {
                 {file.name}
               </p>
               <p className={styles.subheading}>
-                {(file.size / 1024 / 1024).toFixed(2)} MB &middot; Click to replace
+                {(file.size / 1024 / 1024).toFixed(2)} MB &middot; {t('upload_click_replace')}
               </p>
             </>
           ) : (
             <>
               <h3 className={`text-h3 ${styles.heading} ${isDragging ? styles.headingDragging : ''}`}>
-                Drag &amp; drop your file here
+                {t('upload_drag_drop')}
               </h3>
-              <p className={styles.subheading}>or click to browse from your computer</p>
+              <p className={styles.subheading}>{t('upload_or_browse')}</p>
             </>
           )}
 
           <div className={styles.chips}>
-            {ACCEPTED_TYPES.map((t) => (
-              <span key={t} className={styles.chip}>{t}</span>
+            {ACCEPTED_TYPES.map((type) => (
+              <span key={type} className={styles.chip}>{type}</span>
             ))}
-            <span className={styles.maxSize}>{MAX_SIZE_LABEL}</span>
+            <span className={styles.maxSize}>{t('upload_max_size')}</span>
           </div>
         </div>
       </div>

@@ -1,0 +1,123 @@
+.page {
+  padding: var(--space-xl);
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.subtitle {
+  margin-top: var(--space-md);
+  color: var(--color-on-surface-variant);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-surface-container-highest);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  position: relative;
+}
+
+.cardFeatured {
+  border: 1px solid var(--color-secondary);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.badge {
+  position: static;
+  align-self: flex-start;
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+  font-size: var(--font-size-label-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.tierName { color: var(--color-on-surface); }
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.priceAmount {
+  font-size: var(--font-size-h1);
+  color: var(--color-on-surface);
+}
+
+.pricePeriod {
+  color: var(--color-on-surface-variant);
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.featureIcon {
+  color: var(--color-secondary);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.faq {
+  margin-top: var(--space-xl);
+}
+
+.faqItem {
+  border-top: 1px solid var(--color-outline-variant);
+  padding: var(--space-lg) 0;
+}
+
+.faqQuestion {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-xs);
+}
+
+.faqAnswer {
+  color: var(--color-on-surface-variant);
+}

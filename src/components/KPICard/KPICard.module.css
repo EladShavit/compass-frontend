@@ -100,6 +100,48 @@
   color: var(--color-tertiary);
 }
 
+/* ── Top-right cluster (badge + info) ───────────────────── */
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ── Info tooltip ────────────────────────────────────────── */
+.infoWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.infoIcon {
+  font-size: 16px !important;
+  color: var(--color-on-surface-variant);
+  cursor: default;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.infoWrap:hover .infoIcon { opacity: 1; }
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 200px;
+  max-width: 260px;
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index: 100;
+  pointer-events: none;
+  white-space: normal;
+}
+
 /* ── Content ─────────────────────────────────────────────── */
 .content {
   position: relative;

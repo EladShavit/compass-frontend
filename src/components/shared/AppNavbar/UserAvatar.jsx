@@ -2,20 +2,22 @@ import { useState, useRef, useEffect } from 'react'
 import Avatar from '../../Avatar/Avatar'
 import { auth } from '../../../lib/auth'
 import { useAuth } from '../../../context/AuthContext'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './UserAvatar.module.css'
-
-const MENU_ITEMS = [
-  { icon: 'person', label: 'Profile' },
-  { icon: 'settings', label: 'Settings' },
-  { icon: 'help', label: 'Help & Support' },
-  { divider: true },
-  { icon: 'logout', label: 'Sign out' },
-]
 
 export default function UserAvatar({ src }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const { profile, user } = useAuth()
+  const { t } = useLanguage()
+
+  const MENU_ITEMS = [
+    { icon: 'person', key: 'usermenu_profile' },
+    { icon: 'settings', key: 'usermenu_settings' },
+    { icon: 'help', key: 'usermenu_help' },
+    { divider: true },
+    { icon: 'logout', key: 'usermenu_signout' },
+  ]
 
   const name = profile?.display_name || user?.email || 'User'
   const initials = name
@@ -41,7 +43,7 @@ export default function UserAvatar({ src }) {
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label="User menu"
+        aria-label={t('usermenu_aria')}
       >
         <Avatar src={src || profile?.avatar_url} initials={initials} alt={name} size="md" />
         <span className={`material-symbols-outlined ${styles.chevron} ${open ? styles.open : ''}`}>
@@ -55,7 +57,7 @@ export default function UserAvatar({ src }) {
             <Avatar src={src || profile?.avatar_url} initials={initials} alt={name} size="lg" />
             <div>
               <p className={styles.menuName}>{name}</p>
-              <p className={styles.menuRole}>{profile?.tier === 'Pro' ? 'Pro Member' : 'Free Tier'}</p>
+              <p className={styles.menuRole}>{profile?.tier === 'Pro' ? t('usermenu_pro') : t('usermenu_free')}</p>
             </div>
           </div>
           <div className={styles.divider} />
@@ -63,18 +65,18 @@ export default function UserAvatar({ src }) {
             item.divider ? (
               <div key={i} className={styles.divider} />
             ) : (
-              <button 
-                key={item.label} 
-                type="button" 
-                className={styles.menuItem} 
+              <button
+                key={item.key}
+                type="button"
+                className={styles.menuItem}
                 role="menuitem"
-                onClick={item.label === 'Sign out' ? async () => {
+                onClick={item.key === 'usermenu_signout' ? async () => {
                   await auth.signOut()
                   // The ProtectedRoute listener will automatically handle the redirect to /login
                 } : undefined}
               >
                 <span className={`material-symbols-outlined ${styles.menuIcon}`}>{item.icon}</span>
-                {item.label}
+                {t(item.key)}
               </button>
             )
           )}

@@ -1,13 +1,16 @@
 import Tip from '../Tip/Tip'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './TipsSection.module.css'
 
-const TIPS = [
-  { text: 'Ensure all document pages are included in a single file.' },
-  { text: 'Scans must be flat, well-lit, and legible without cropping.' },
-  { text: 'Remove password protection from PDFs before uploading.' },
-]
-
 export default function TipsSection() {
+  const { t } = useLanguage()
+
+  const TIPS = [
+    { text: t('upload_tip_1') },
+    { text: t('upload_tip_2') },
+    { text: t('upload_tip_3') },
+  ]
+
   return (
     <aside className={styles.card}>
       {/* Header banner */}
@@ -17,15 +20,14 @@ export default function TipsSection() {
           <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-tertiary)' }}>
             smart_toy
           </span>
-          <h3 className={styles.bannerTitle}>AI Extraction Tips</h3>
+          <h3 className={styles.bannerTitle}>{t('upload_tips_title')}</h3>
         </div>
       </div>
 
       {/* Body */}
       <div className={styles.body}>
         <p className={styles.intro}>
-          Our Compass AI automatically extracts transactional data.
-          Follow these guidelines for perfect accuracy.
+          {t('upload_tips_intro')}
         </p>
 
         <ul className={styles.tipsList}>
@@ -39,7 +41,7 @@ export default function TipsSection() {
           <span className="material-symbols-outlined" style={{ fontSize: 16, color: 'var(--color-outline-variant)' }}>
             lock
           </span>
-          <span className={styles.encryptText}>End-to-end encrypted transfer</span>
+          <span className={styles.encryptText}>{t('upload_encrypted_transfer')}</span>
         </div>
       </div>
     </aside>

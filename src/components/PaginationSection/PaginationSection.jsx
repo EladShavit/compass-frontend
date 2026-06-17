@@ -1,3 +1,4 @@
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './PaginationSection.module.css'
 
 /**
@@ -8,6 +9,7 @@ export default function PaginationSection({
   totalPages = 3,
   onPageChange,
 }) {
+  const { t } = useLanguage()
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
   return (
@@ -18,7 +20,7 @@ export default function PaginationSection({
         className={styles.navBtn}
         disabled={currentPage === 1}
         onClick={() => onPageChange?.(currentPage - 1)}
-        aria-label="Previous page"
+        aria-label={t('pagination_previous')}
       >
         <span className="material-symbols-outlined">chevron_left</span>
       </button>
@@ -42,7 +44,7 @@ export default function PaginationSection({
         className={styles.navBtn}
         disabled={currentPage === totalPages}
         onClick={() => onPageChange?.(currentPage + 1)}
-        aria-label="Next page"
+        aria-label={t('pagination_next')}
       >
         <span className="material-symbols-outlined">chevron_right</span>
       </button>

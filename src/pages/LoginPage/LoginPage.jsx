@@ -5,6 +5,7 @@ import Button from '../../components/Button/Button'
 import Input from '../../components/Input/Input'
 import Divider from '../../components/Divider/Divider'
 import Tooltip from '../../components/Tooltip/Tooltip'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './LoginPage.module.css'
 
 // Google "G" SVG icon
@@ -20,25 +21,40 @@ function GoogleIcon() {
 }
 
 export default function LoginPage() {
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
 
   const navigate = useNavigate()
 
+  async function handleGoogleSignIn() {
+    setError('')
+    setGoogleLoading(true)
+    try {
+      const { data, error: oauthError } = await auth.signInWithGoogle()
+      if (oauthError) throw oauthError
+      if (data?.session) navigate('/dashboard')
+    } catch (err) {
+      setError(err.message || t('login_google_failed'))
+      setGoogleLoading(false)
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
-    
+
     const cleanEmail = email.trim()
-    
+
     if (!cleanEmail || !password) {
-      setError('Please fill in all fields.')
+      setError(t('login_fill_all_fields'))
       return
     }
     setError('')
     setLoading(true)
-    
+
     try {
       const { data, error: signInError } = await auth.signInWithPassword({
         email: cleanEmail,
@@ -46,10 +62,10 @@ export default function LoginPage() {
       })
 
       if (signInError) throw signInError
-      
+
       navigate('/dashboard')
     } catch (err) {
-      setError(err.message || 'Failed to sign in. Check credentials.')
+      setError(err.message || t('login_failed'))
     } finally {
       setLoading(false)
     }
@@ -76,9 +92,9 @@ export default function LoginPage() {
               <span className={`material-symbols-outlined ${styles.logoIcon}`}>explore</span>
               <span className={styles.logoText}>Compass</span>
             </div>
-            <h1 className={`text-h2 ${styles.heading}`}>Welcome back</h1>
+            <h1 className={`text-h2 ${styles.heading}`}>{t('login_heading')}</h1>
             <p className={`text-body-md ${styles.subheading}`}>
-              Log in to securely manage your portfolio.
+              {t('login_subheading')}
             </p>
           </div>
 
@@ -87,14 +103,16 @@ export default function LoginPage() {
             type="button"
             className={styles.socialBtn}
             id="google-signin-btn"
+            onClick={handleGoogleSignIn}
+            disabled={googleLoading}
           >
             <GoogleIcon />
-            <span className="text-body-md">Continue with Google</span>
+            <span className="text-body-md">{googleLoading ? t('login_google_redirecting') : t('login_google_continue')}</span>
           </button>
 
           {/* Divider */}
           <div className={styles.dividerWrapper}>
-            <Divider label="or email" />
+            <Divider label={t('login_or_email')} />
           </div>
 
           {/* Form */}
@@ -103,7 +121,7 @@ export default function LoginPage() {
               id="email"
               name="email"
               type="email"
-              label="Email address"
+              label={t('login_email_label')}
               placeholder="name@company.com"
               icon="mail"
               value={email}
@@ -113,8 +131,8 @@ export default function LoginPage() {
 
             <div className={styles.passwordField}>
               <div className={styles.passwordHeader}>
-                <label className={styles.passwordLabel} htmlFor="password">Password</label>
-                <Link className={styles.forgotLink} to="/forgot-password">Forgot password?</Link>
+                <label className={styles.passwordLabel} htmlFor="password">{t('login_password_label')}</label>
+                <Link className={styles.forgotLink} to="/forgot-password">{t('login_forgot_password')}</Link>
               </div>
               <Input
                 id="password"
@@ -139,28 +157,28 @@ export default function LoginPage() {
               disabled={loading}
               id="sign-in-btn"
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? t('login_signing_in') : t('login_sign_in')}
             </Button>
           </form>
 
           {/* Footer Link */}
           <div className={styles.signupRow}>
             <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)' }}>
-              Don&apos;t have an account?{' '}
-              <Link className={styles.signupLink} to="/register">Sign up</Link>
+              {t('login_no_account')}{' '}
+              <Link className={styles.signupLink} to="/register">{t('login_sign_up')}</Link>
             </p>
           </div>
         </div>
 
         {/* Trust Indicators */}
         <div className={styles.trustRow}>
-          <Tooltip text="Encrypted Connection" position="top">
+          <Tooltip text={t('trust_encrypted_connection')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>verified_user</span>
           </Tooltip>
-          <Tooltip text="Secure Architecture" position="top">
+          <Tooltip text={t('trust_secure_architecture')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>shield</span>
           </Tooltip>
-          <Tooltip text="Enterprise Grade" position="top">
+          <Tooltip text={t('trust_enterprise_grade')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>domain</span>
           </Tooltip>
         </div>

@@ -5,6 +5,7 @@ import Input from '../../components/Input/Input'
 import Divider from '../../components/Divider/Divider'
 import Tooltip from '../../components/Tooltip/Tooltip'
 import { auth } from '../../lib/auth'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from '../LoginPage/LoginPage.module.css'
 
 // Google "G" SVG icon
@@ -20,6 +21,7 @@ function GoogleIcon() {
 }
 
 export default function RegisterPage() {
+  const { t } = useLanguage()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -27,20 +29,34 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
+
+  async function handleGoogleSignUp() {
+    setError('')
+    setGoogleLoading(true)
+    try {
+      const { data, error: oauthError } = await auth.signInWithGoogle()
+      if (oauthError) throw oauthError
+      if (data?.session) navigate('/dashboard')
+    } catch (err) {
+      setError(err.message || t('register_google_failed'))
+      setGoogleLoading(false)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
-    
+
     // Aggressively clean the email: trim, remove zero-width spaces, remove quotes, and convert to lowercase
     const cleanEmail = email.replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/["']/g, '').trim().toLowerCase()
-    
+
     if (!cleanEmail || !password || !confirmPassword || !fullName) {
-      setError('Please fill in all fields.')
+      setError(t('register_fill_all_fields'))
       return
     }
-    
+
     if (password !== confirmPassword) {
-      setError('Passwords do not match.')
+      setError(t('register_passwords_mismatch'))
       return
     }
     
@@ -79,14 +95,14 @@ export default function RegisterPage() {
       
       // If Supabase requires email confirmation, it returns a user but no session
       if (data?.user && !data?.session) {
-        setError('Account created! Please check your email to verify your account before logging in.')
+        setError(t('register_email_confirm_required'))
         return
       }
-      
+
       // If sign up is successful and a session exists, redirect to dashboard
       navigate('/dashboard')
     } catch (err) {
-      setError(err.message || 'Failed to create account. Check if Supabase keys are configured.')
+      setError(err.message || t('register_failed'))
     } finally {
       setLoading(false)
     }
@@ -113,9 +129,9 @@ export default function RegisterPage() {
               <span className={`material-symbols-outlined ${styles.logoIcon}`}>explore</span>
               <span className={styles.logoText}>Compass</span>
             </div>
-            <h1 className={`text-h2 ${styles.heading}`}>Create your account</h1>
+            <h1 className={`text-h2 ${styles.heading}`}>{t('register_heading')}</h1>
             <p className={`text-body-md ${styles.subheading}`}>
-              Start automating your financial intelligence.
+              {t('register_subheading')}
             </p>
           </div>
 
@@ -124,14 +140,16 @@ export default function RegisterPage() {
             type="button"
             className={styles.socialBtn}
             id="google-signup-btn"
+            onClick={handleGoogleSignUp}
+            disabled={googleLoading}
           >
             <GoogleIcon />
-            <span className="text-body-md">Sign up with Google</span>
+            <span className="text-body-md">{googleLoading ? t('login_google_redirecting') : t('register_google_signup')}</span>
           </button>
 
           {/* Divider */}
           <div className={styles.dividerWrapper}>
-            <Divider label="or email" />
+            <Divider label={t('login_or_email')} />
           </div>
 
           {/* Form */}
@@ -140,19 +158,19 @@ export default function RegisterPage() {
               id="fullName"
               name="fullName"
               type="text"
-              label="Full Name"
+              label={t('register_full_name_label')}
               placeholder="Sarah Jenkins"
               icon="person"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
             />
-            
+
             <Input
               id="email"
               name="email"
               type="email"
-              label="Email address"
+              label={t('register_email_label')}
               placeholder="name@company.com"
               icon="mail"
               value={email}
@@ -162,7 +180,7 @@ export default function RegisterPage() {
 
             <div className={styles.passwordField}>
               <div className={styles.passwordHeader}>
-                <label className={styles.passwordLabel} htmlFor="password">Password</label>
+                <label className={styles.passwordLabel} htmlFor="password">{t('register_password_label')}</label>
               </div>
               <Input
                 id="password"
@@ -178,7 +196,7 @@ export default function RegisterPage() {
             
             <div className={styles.passwordField}>
               <div className={styles.passwordHeader}>
-                <label className={styles.passwordLabel} htmlFor="confirmPassword">Confirm Password</label>
+                <label className={styles.passwordLabel} htmlFor="confirmPassword">{t('register_confirm_password_label')}</label>
               </div>
               <Input
                 id="confirmPassword"
@@ -203,28 +221,28 @@ export default function RegisterPage() {
               disabled={loading}
               id="sign-up-btn"
             >
-              {loading ? 'Creating account…' : 'Create Account'}
+              {loading ? t('register_creating_account') : t('register_create_account')}
             </Button>
           </form>
 
           {/* Footer Link */}
           <div className={styles.signupRow}>
             <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)' }}>
-              Already have an account?{' '}
-              <Link className={styles.signupLink} to="/login">Log in</Link>
+              {t('register_have_account')}{' '}
+              <Link className={styles.signupLink} to="/login">{t('register_log_in')}</Link>
             </p>
           </div>
         </div>
 
         {/* Trust Indicators */}
         <div className={styles.trustRow}>
-          <Tooltip text="Encrypted Connection" position="top">
+          <Tooltip text={t('trust_encrypted_connection')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>verified_user</span>
           </Tooltip>
-          <Tooltip text="Secure Architecture" position="top">
+          <Tooltip text={t('trust_secure_architecture')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>shield</span>
           </Tooltip>
-          <Tooltip text="Enterprise Grade" position="top">
+          <Tooltip text={t('trust_enterprise_grade')} position="top">
             <span className={`material-symbols-outlined ${styles.trustIcon}`}>domain</span>
           </Tooltip>
         </div>

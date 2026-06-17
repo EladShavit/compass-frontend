@@ -1,46 +1,94 @@
+import { useNavigate } from 'react-router-dom'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './ExpenseChartSection.module.css'
 
-const FALLBACK_BARS = [
-  { month: 'Jan', height: 40, value: '$8k',  color: 'default' },
-  { month: 'Feb', height: 60, value: '$12k', color: 'default' },
-  { month: 'Mar', height: 85, value: '$17k', color: 'tertiary' },
-  { month: 'Apr', height: 30, value: '$6k',  color: 'default' },
-  { month: 'May', height: 50, value: '$10k', color: 'secondary' },
-  { month: 'Jun', height: 75, value: '$15k', color: 'default' },
-]
-
-const Y_LABELS = ['$20k', '$10k', '$0']
-
 export default function ExpenseChartSection({ chartData = [] }) {
-  
-  // Format the real data if available, otherwise use fallback for visual testing
-  const bars = chartData.length > 0 ? chartData.map(d => {
-    // Assuming max value is around $20k for height %
-    const maxVal = 20000;
+  const { t, tMonth } = useLanguage()
+  const navigate = useNavigate()
+
+  if (chartData.length === 0) {
+    return (
+      <section className={styles.wrapper} aria-label="Spending Trends">
+        <div className={styles.header}>
+          <div>
+            <h3 className={`text-h3 ${styles.title}`}>{t('chart_spending_trends')}</h3>
+          </div>
+        </div>
+        <div className={styles.emptyState}>
+          <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)' }}>
+            {t('chart_empty_state')}
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  const maxVal = Math.max(...chartData.map(d => d.value), 1)
+  const totalSpend = chartData.reduce((s, d) => s + d.value, 0)
+  const avgSpend = totalSpend / chartData.length
+
+  const now = new Date()
+  const currentMonthLabel = now.toLocaleString('en', { month: 'short', year: 'numeric' })
+
+  const bars = chartData.map(d => {
+    const isCurrent = d.period_label === currentMonthLabel || d.period_label.startsWith(now.toLocaleString('en', { month: 'short' }))
     return {
-      month: d.period_label.substring(0, 3), // e.g., 'Oct'
-      height: Math.min((d.value / maxVal) * 100, 100),
-      value: `$${(d.value / 1000).toFixed(1)}k`,
-      color: 'default' // We could dynamically assign colors based on value or budget here
+      label: d.period_label,
+      shortLabel: tMonth(d.period_label.substring(0, 3)),
+      height: Math.max(Math.min((d.value / maxVal) * 100, 100), 4),
+      raw: d.value,
+      display: d.value >= 1000 ? `₪${(d.value / 1000).toFixed(1)}k` : `₪${d.value.toFixed(0)}`,
+      isCurrent,
+      isAboveAvg: d.value > avgSpend,
     }
-  }) : FALLBACK_BARS
+  })
+
+  const fmt = (v) => v >= 1000 ? `₪${(v / 1000).toFixed(1)}k` : `₪${v.toFixed(0)}`
+  const translateLabel = (label) => {
+    const [month, year] = label.split(' ')
+    return `${tMonth(month)} ${year}`
+  }
+  const periodRange = `${translateLabel(chartData[0].period_label)} – ${translateLabel(chartData[chartData.length - 1].period_label)}`
 
   return (
     <section className={styles.wrapper} aria-label="Spending Trends">
       {/* Header */}
       <div className={styles.header}>
-        <h3 className={`text-h3 ${styles.title}`}>Spending Trends</h3>
-        <button className={styles.detailsBtn} type="button">
-          View Details
+        <div>
+          <h3 className={`text-h3 ${styles.title}`}>{t('chart_spending_trends')}</h3>
+          <p className={styles.subtitle}>{t('chart_subtitle')} · {periodRange}</p>
+        </div>
+        <button className={styles.detailsBtn} type="button" onClick={() => navigate('/transactions')}>
+          {t('chart_view_details')}
           <span className="material-symbols-outlined" style={{ fontSize: 16 }}>chevron_right</span>
         </button>
+      </div>
+
+      {/* Summary strip */}
+      <div className={styles.summaryStrip}>
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>{t('chart_total_label')} ({chartData.length} {t('chart_months')})</span>
+          <span className={styles.summaryValue}>{fmt(totalSpend)}</span>
+        </div>
+        <div className={styles.summaryDivider} />
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>{t('chart_monthly_avg')}</span>
+          <span className={styles.summaryValue}>{fmt(avgSpend)}</span>
+        </div>
+        <div className={styles.summaryDivider} />
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>{t('chart_peak_month')}</span>
+          <span className={styles.summaryValue}>{fmt(maxVal)}</span>
+        </div>
       </div>
 
       {/* Chart area */}
       <div className={styles.chartArea}>
         {/* Y-axis */}
         <div className={styles.yAxis}>
-          {Y_LABELS.map((l) => <span key={l}>{l}</span>)}
+          <span>{fmt(maxVal)}</span>
+          <span>{fmt(maxVal / 2)}</span>
+          <span>₪0</span>
         </div>
 
         {/* Grid + bars */}
@@ -52,22 +100,41 @@ export default function ExpenseChartSection({ chartData = [] }) {
             <div className={styles.gridLine} />
           </div>
 
+          {/* Avg line */}
+          <div
+            className={styles.avgLine}
+            style={{ bottom: `calc(${(avgSpend / maxVal) * 100}% + var(--space-lg))` }}
+            aria-label={`Average: ${fmt(avgSpend)}`}
+          />
+
           {/* Bars */}
           <div className={styles.bars}>
             {bars.map((bar, i) => (
-              <div key={bar.month + i} className={styles.barCol}>
+              <div key={bar.label + i} className={styles.barCol}>
+                <span className={`${styles.barValue} ${bar.isCurrent ? styles.barValueCurrent : ''}`}>
+                  {bar.display}
+                </span>
                 <div className={styles.tooltipWrap}>
                   <div
-                    className={`${styles.bar} ${styles[`bar-${bar.color}`]}`}
+                    className={`${styles.bar} ${bar.isCurrent ? styles.barCurrent : bar.isAboveAvg ? styles.barAboveAvg : styles.barDefault}`}
                     style={{ height: `${bar.height}%` }}
                   />
-                  <span className={styles.tooltip}>{bar.value}</span>
                 </div>
-                <span className={styles.xLabel}>{bar.month}</span>
+                <span className={`${styles.xLabel} ${bar.isCurrent ? styles.xLabelCurrent : ''}`}>
+                  {bar.shortLabel}
+                </span>
               </div>
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Legend */}
+      <div className={styles.legend}>
+        <span className={`${styles.legendDot} ${styles.legendDotCurrent}`} /> {t('chart_legend_current')}
+        <span className={`${styles.legendDot} ${styles.legendDotAbove}`} /> {t('chart_legend_above')}
+        <span className={`${styles.legendDot} ${styles.legendDotDefault}`} /> {t('chart_legend_below')}
+        <span className={styles.legendAvgLine} /> {t('chart_monthly_avg')}
       </div>
     </section>
   )

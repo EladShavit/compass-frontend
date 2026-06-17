@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import FilterChip from '../FilterChip/FilterChip'
+import { useLanguage } from '../../context/LanguageContext'
 import styles from './AlertsFilterBarSection.module.css'
 
-const FILTERS = [
-  { id: 'all',           label: 'All Alerts',    dot: null },
-  { id: 'critical',      label: 'Critical',      dot: 'error' },
-  { id: 'opportunities', label: 'Opportunities', dot: 'secondary' },
-  { id: 'duplicates',    label: 'Duplicates',    dot: 'tertiary' },
-]
-
 export default function AlertsFilterBarSection({ activeFilter, onFilterChange }) {
+  const { t } = useLanguage()
+
+  const FILTERS = [
+    { id: 'all',           label: t('alerts_filter_all'),           dot: null },
+    { id: 'critical',      label: t('alerts_filter_critical'),      dot: 'error' },
+    { id: 'opportunities', label: t('alerts_filter_opportunities'), dot: 'secondary' },
+    { id: 'duplicates',    label: t('alerts_filter_duplicates'),    dot: 'tertiary' },
+  ]
+
   return (
     <div className={styles.bar}>
       <div className={styles.chips}>
@@ -27,7 +30,7 @@ export default function AlertsFilterBarSection({ activeFilter, onFilterChange })
       {/* Sort button */}
       <button type="button" className={styles.sortBtn}>
         <span className="material-symbols-outlined" style={{ fontSize: 20 }}>sort</span>
-        Sort by: Priority
+        {t('alerts_sort_by_priority')}
       </button>
     </div>
   )
