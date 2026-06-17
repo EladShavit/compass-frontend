@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Avatar from '../../Avatar/Avatar'
 import { auth } from '../../../lib/auth'
 import { useAuth } from '../../../context/AuthContext'
@@ -10,11 +11,12 @@ export default function UserAvatar({ src }) {
   const ref = useRef(null)
   const { profile, user } = useAuth()
   const { t } = useLanguage()
+  const navigate = useNavigate()
 
   const MENU_ITEMS = [
-    { icon: 'person', key: 'usermenu_profile' },
-    { icon: 'settings', key: 'usermenu_settings' },
-    { icon: 'help', key: 'usermenu_help' },
+    { icon: 'person', key: 'usermenu_profile', to: '/profile' },
+    { icon: 'settings', key: 'usermenu_settings', to: '/settings' },
+    { icon: 'help', key: 'usermenu_help', to: '/contact' },
     { divider: true },
     { icon: 'logout', key: 'usermenu_signout' },
   ]
@@ -72,8 +74,8 @@ export default function UserAvatar({ src }) {
                 role="menuitem"
                 onClick={item.key === 'usermenu_signout' ? async () => {
                   await auth.signOut()
-                  // The ProtectedRoute listener will automatically handle the redirect to /login
-                } : undefined}
+                  navigate('/')
+                } : item.to ? () => { setOpen(false); navigate(item.to) } : undefined}
               >
                 <span className={`material-symbols-outlined ${styles.menuIcon}`}>{item.icon}</span>
                 {t(item.key)}
