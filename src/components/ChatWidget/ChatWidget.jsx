@@ -8,14 +8,27 @@ export default function ChatWidget() {
   const { t, dir } = useLanguage()
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [unread, setUnread] = useState(0)
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  const prevMsgCount = useRef(0)
 
   const { transactions } = useTransactions(200)
   const { messages, loading, sendMessage, reset } = useChat(transactions)
 
+  // Track new assistant messages that arrive while panel is closed
+  useEffect(() => {
+    const newCount = messages.length
+    const lastMsg = messages[newCount - 1]
+    if (!open && newCount > prevMsgCount.current && lastMsg?.role === 'assistant') {
+      setUnread(u => u + 1)
+    }
+    prevMsgCount.current = newCount
+  }, [messages, open])
+
   useEffect(() => {
     if (open) {
+      setUnread(0)
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
       inputRef.current?.focus()
     }
@@ -137,7 +150,7 @@ export default function ChatWidget() {
         <span className="material-symbols-outlined">
           {open ? 'close' : 'smart_toy'}
         </span>
-        {!open && messages.length > 0 && (
+        {!open && unread > 0 && (
           <span className={styles.fabDot} />
         )}
       </button>

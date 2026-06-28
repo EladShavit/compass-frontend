@@ -86,21 +86,22 @@ export default function RegisterPage() {
         const { supabase } = await import('../../lib/supabase')
         await supabase
           .from('profiles')
-          .update({ 
+          .update({
             display_name: fullName,
-            first_name: firstName 
+            first_name: firstName,
+            onboarding_complete: false,
           })
           .eq('user_id', data.user.id)
       }
-      
+
       // If Supabase requires email confirmation, it returns a user but no session
       if (data?.user && !data?.session) {
         setError(t('register_email_confirm_required'))
         return
       }
 
-      // If sign up is successful and a session exists, redirect to dashboard
-      navigate('/dashboard')
+      // New users go to onboarding
+      navigate('/onboarding')
     } catch (err) {
       setError(err.message || t('register_failed'))
     } finally {

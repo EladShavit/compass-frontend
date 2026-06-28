@@ -20,6 +20,9 @@ import UpgradePage from './pages/UpgradePage/UpgradePage'
 import UpgradeSuccessPage from './pages/UpgradePage/UpgradeSuccessPage'
 import UpgradeCancelPage from './pages/UpgradePage/UpgradeCancelPage'
 
+// Onboarding
+import OnboardingPage from './pages/OnboardingPage/OnboardingPage'
+
 // Protected Pages
 import DashboardPage from './pages/DashboardPage/DashboardPage'
 import TransactionsPage from './pages/TransactionsPage/TransactionsPage'
@@ -42,6 +45,13 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
+
+      {/* Onboarding — protected but full-screen (no AppLayout chrome) */}
+      <Route path="/onboarding" element={
+        <ProtectedRoute>
+          <OnboardingPage />
+        </ProtectedRoute>
+      } />
 
       {/* Protected routes */}
       <Route element={

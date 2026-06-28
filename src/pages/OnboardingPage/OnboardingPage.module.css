@@ -1,0 +1,246 @@
+.root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  padding: var(--space-lg);
+}
+
+/* ── Progress bar ───────────────────────────────────────────── */
+.progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-surface-container);
+  z-index: 10;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-secondary);
+  transition: width 0.4s ease;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--card-radius);
+  padding: var(--space-2xl, 48px) var(--space-xl);
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border: 1px solid var(--color-outline-variant);
+}
+
+/* ── Step content ───────────────────────────────────────────── */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  text-align: center;
+}
+
+.bigIcon {
+  font-size: 56px;
+  color: var(--color-secondary);
+}
+
+.title {
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--color-on-surface-variant);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Feature list ───────────────────────────────────────────── */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  text-align: start;
+}
+
+.featureRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--color-surface-container);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.featureIcon {
+  font-size: 22px;
+  color: var(--color-secondary);
+  flex-shrink: 0;
+}
+
+.featureText {
+  font-size: 0.9rem;
+  color: var(--color-on-surface);
+  font-weight: 500;
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  text-align: start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+}
+
+.input {
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--color-secondary);
+}
+
+.typeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.typeBtn {
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+  font-size: 0.85rem;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-family-base);
+}
+
+.typeBtn:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-on-surface);
+}
+
+.typeBtnActive {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  border-color: var(--color-secondary);
+  font-weight: 600;
+}
+
+/* ── Actions ────────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-md) var(--space-xl);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: var(--font-family-base);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.skipBtn {
+  background: none;
+  border: none;
+  color: var(--color-on-surface-variant);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: var(--space-xs);
+  text-decoration: underline;
+  font-family: var(--font-family-base);
+}
+
+.skipBtn:hover {
+  color: var(--color-on-surface);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ── Step dots ──────────────────────────────────────────────── */
+.dots {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-outline-variant);
+  transition: background 0.2s;
+}
+
+.dotActive {
+  background: var(--color-secondary);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: var(--space-xl) var(--space-md);
+  }
+}

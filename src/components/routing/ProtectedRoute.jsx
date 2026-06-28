@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 export default function ProtectedRoute({ children }) {
-  const { session, loading } = useAuth()
+  const { session, profile, loading } = useAuth()
   const location = useLocation()
 
   if (loading) {
@@ -15,8 +15,12 @@ export default function ProtectedRoute({ children }) {
   }
 
   if (!session) {
-    // Redirect to the login page, but save the current location they were trying to go to
     return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  // Redirect new users to onboarding (skip if already on /onboarding)
+  if (profile && profile.onboarding_complete === false && location.pathname !== '/onboarding') {
+    return <Navigate to="/onboarding" replace />
   }
 
   return children
