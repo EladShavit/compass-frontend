@@ -28,6 +28,7 @@ Most people have no real-time picture of their finances: they juggle multiple ba
 | **Mint / YNAB** | Full-featured budgeting | Require direct bank login (credential sharing), not available in Israel |
 | **WhatsApp groups / family tracking** | Social accountability | No data, no history, no privacy |
 | **Cleo / Emma (EU apps)** | AI-powered finance chat | Not localised for Israel, require open-banking API |
+| **RiseUp** | Israeli personal finance app with bank-sync and spending insights | Requires sharing bank credentials via screen-scraping; Compass uses document upload only — no credentials ever shared |
 | **Doing nothing** | Free | Most common "competitor" — Compass removes the activation barrier |
 
 **Compass's edge:** upload a PDF → done. No credentials shared, full Hebrew RTL support, AI-parsed automatically, proactive alerts fire before you notice a problem.
