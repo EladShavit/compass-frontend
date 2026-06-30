@@ -5,6 +5,8 @@ import Button from '../../components/Button/Button'
 import Input from '../../components/Input/Input'
 import Modal from '../../components/Modal/Modal'
 import { useLanguage } from '../../context/LanguageContext'
+import { useBudgets } from '../../hooks/useBudgets'
+import { useTransactions } from '../../hooks/useTransactions'
 import styles from './SettingsPage.module.css'
 
 function Section({ title, children }) {
@@ -36,9 +38,120 @@ function ToggleRow({ label, description, checked, onChange }) {
   )
 }
 
+const KNOWN_CATEGORIES = [
+  'Food & Drink', 'Groceries', 'Transport', 'Shopping', 'Health', 'Entertainment',
+  'Housing', 'Utilities', 'Education', 'Travel', 'Subscriptions', 'Other',
+]
+
+function BudgetSection({ t, tCat, formatAmount }) {
+  const { transactions } = useTransactions(200)
+  const { budgets, addBudget, deleteBudget, updateBudget } = useBudgets(transactions)
+  const [newCat, setNewCat] = useState(KNOWN_CATEGORIES[0])
+  const [newLimit, setNewLimit] = useState('')
+  const [formError, setFormError] = useState('')
+  const [adding, setAdding] = useState(false)
+  const [editId, setEditId] = useState(null)
+  const [editLimit, setEditLimit] = useState('')
+
+  async function handleAdd(e) {
+    e.preventDefault()
+    const limit = parseFloat(newLimit)
+    if (!newCat || !limit || limit <= 0) { setFormError(t('budget_form_error')); return }
+    setFormError('')
+    setAdding(true)
+    try {
+      await addBudget(newCat, limit)
+      setNewLimit('')
+    } catch (err) {
+      setFormError(err.message)
+    } finally {
+      setAdding(false)
+    }
+  }
+
+  async function handleUpdate(id) {
+    const limit = parseFloat(editLimit)
+    if (!limit || limit <= 0) return
+    await updateBudget(id, limit)
+    setEditId(null)
+  }
+
+  const existingCats = new Set(budgets.map(b => b.category_name))
+  const availableCats = KNOWN_CATEGORIES.filter(c => !existingCats.has(c))
+
+  return (
+    <div className={styles.sectionBody}>
+      {budgets.length > 0 ? (
+        <div className={styles.budgetList}>
+          {budgets.map((b) => (
+            <div key={b.id} className={styles.budgetItem}>
+              <span className={styles.budgetCat}>{tCat(b.category_name)}</span>
+              {editId === b.id ? (
+                <>
+                  <input
+                    className={styles.budgetInput}
+                    type="number"
+                    min="1"
+                    value={editLimit}
+                    onChange={(e) => setEditLimit(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleUpdate(b.id); if (e.key === 'Escape') setEditId(null) }}
+                    autoFocus
+                  />
+                  <div className={styles.budgetActions}>
+                    <button className={styles.iconBtn} type="button" onClick={() => handleUpdate(b.id)} title="Save">
+                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>check</span>
+                    </button>
+                    <button className={styles.iconBtn} type="button" onClick={() => setEditId(null)} title="Cancel">
+                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>close</span>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className={styles.budgetLimit}>{formatAmount(b.monthly_limit)}</span>
+                  <div className={styles.budgetActions}>
+                    <button className={styles.iconBtn} type="button" onClick={() => { setEditId(b.id); setEditLimit(String(b.monthly_limit)) }} title={t('budget_edit')}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>edit</span>
+                    </button>
+                    <button className={`${styles.iconBtn} ${styles.danger}`} type="button" onClick={() => deleteBudget(b.id)} title={t('budget_delete')}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)' }}>{t('budget_none_set')}</p>
+      )}
+
+      {availableCats.length > 0 && (
+        <form className={styles.addBudgetForm} onSubmit={handleAdd}>
+          <select className={styles.budgetSelect} value={newCat} onChange={(e) => setNewCat(e.target.value)}>
+            {availableCats.map((c) => <option key={c} value={c}>{tCat(c)}</option>)}
+          </select>
+          <input
+            className={styles.budgetInput}
+            type="number"
+            min="1"
+            placeholder={t('budget_limit_placeholder')}
+            value={newLimit}
+            onChange={(e) => setNewLimit(e.target.value)}
+          />
+          <Button type="submit" variant="primary" disabled={adding}>
+            {adding ? t('budget_adding') : t('budget_add')}
+          </Button>
+          {formError && <p className={styles.budgetFormError}>{formError}</p>}
+        </form>
+      )}
+    </div>
+  )
+}
+
 export default function SettingsPage() {
-  const { t } = useLanguage()
-  const { currency, setCurrency } = useCurrency()
+  const { t, tCat } = useLanguage()
+  const { currency, setCurrency, formatAmount } = useCurrency()
   const [emailAlerts, setEmailAlerts] = useState(true)
   const [pushAlerts, setPushAlerts] = useState(false)
   const [newPw, setNewPw] = useState('')
@@ -144,6 +257,10 @@ export default function SettingsPage() {
             </Button>
           </div>
         </form>
+      </Section>
+
+      <Section title={t('settings_section_budgets')}>
+        <BudgetSection t={t} tCat={tCat} formatAmount={formatAmount} />
       </Section>
 
       <Section title={t('settings_section_danger')}>

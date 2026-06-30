@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { useAlerts } from '../../hooks/useAlerts'
 import { useTransactions } from '../../hooks/useTransactions'
 import { generateAlerts } from '../../lib/alertGenerator'
+import { useBudgets } from '../../hooks/useBudgets'
 import AlertStatsSection from '../../components/AlertStatsSection/AlertStatsSection'
 import AlertsFilterBarSection from '../../components/AlertsFilterBarSection/AlertsFilterBarSection'
 import AlertsListSection from '../../components/AlertsListSection/AlertsListSection'
@@ -31,11 +32,12 @@ export default function AlertsPage() {
 
   const { alerts: dbAlerts, loading: alertsLoading, dismissAlert: dbDismiss } = useAlerts(null)
   const { transactions, loading: txLoading } = useTransactions(500)
+  const { budgets } = useBudgets(transactions)
 
   const loading = alertsLoading || txLoading
 
-  // Generate client alerts only when transactions change (stable IDs across re-renders)
-  const generated = useMemo(() => generateAlerts(transactions), [transactions])
+  // Generate client alerts only when transactions/budgets change (stable IDs across re-renders)
+  const generated = useMemo(() => generateAlerts(transactions, budgets), [transactions, budgets])
 
   const SEVERITY_RANK = { critical: 0, warning: 1, opportunity: 2 }
 

@@ -1,0 +1,140 @@
+.wrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  margin: 0;
+}
+
+.manageBtn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0;
+}
+
+.manageBtn:hover { opacity: 0.8; }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-xl) 0;
+  gap: 4px;
+}
+
+.addFirstBtn {
+  margin-top: var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addFirstBtn:hover { opacity: 0.88; }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.budgetRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rowTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.catName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.amounts {
+  font-size: 0.85rem;
+  color: var(--color-on-surface-variant);
+}
+
+.amounts.overBudget {
+  color: var(--color-error);
+  font-weight: 700;
+}
+
+.barBg {
+  height: 8px;
+  background: var(--color-surface-variant);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.barOk   { background: var(--color-primary); }
+.barNear { background: var(--color-secondary); }
+.barOver { background: var(--color-error); }
+
+.rowBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statusOver {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.statusNear {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.statusOk {
+  font-size: 0.78rem;
+  color: var(--color-on-surface-variant);
+}
+
+.pct {
+  font-size: 0.78rem;
+  color: var(--color-on-surface-variant);
+  font-weight: 600;
+}

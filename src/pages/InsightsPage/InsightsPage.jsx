@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { useTransactions } from '../../hooks/useTransactions'
 import { useChartData } from '../../hooks/useChartData'
+import { useBudgets } from '../../hooks/useBudgets'
 import { useCurrency } from '../../context/CurrencyContext'
 import ExpenseChartSection from '../../components/ExpenseChartSection/ExpenseChartSection'
+import BudgetProgressSection from '../../components/BudgetProgressSection/BudgetProgressSection'
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
 import ProGate from '../../components/ProGate/ProGate'
 import { useTier } from '../../hooks/useTier'
@@ -25,6 +27,7 @@ export default function InsightsPage() {
   const { isPro } = useTier()
   const { transactions, loading: txLoading } = useTransactions(500)
   const { chartData, loading: chartLoading } = useChartData()
+  const { budgets } = useBudgets(transactions)
   const { formatAmount } = useCurrency()
 
   const stats = useMemo(() => {
@@ -84,6 +87,10 @@ export default function InsightsPage() {
 
       <div className={styles.chartWrap}>
         <ExpenseChartSection chartData={chartData} />
+      </div>
+
+      <div className={styles.chartWrap}>
+        <BudgetProgressSection budgets={budgets} />
       </div>
 
       <div className={styles.categoryList}>

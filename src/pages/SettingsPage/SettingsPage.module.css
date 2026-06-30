@@ -156,6 +156,106 @@
   margin-top: var(--space-lg);
 }
 
+/* Budget management */
+.budgetList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.budgetItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-surface-container-high);
+  border-radius: var(--radius-md);
+}
+
+.budgetCat {
+  flex: 1;
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface);
+  font-weight: 600;
+}
+
+.budgetLimit {
+  font-size: var(--font-size-body-md);
+  color: var(--color-on-surface-variant);
+  min-width: 80px;
+  text-align: end;
+}
+
+.budgetActions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+
+.iconBtn:hover { color: var(--color-primary); background: var(--color-surface-variant); }
+.iconBtn.danger:hover { color: var(--color-error); }
+
+.addBudgetForm {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.budgetSelect {
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  padding: 8px 12px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 140px;
+}
+
+.budgetSelect:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.budgetInput {
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  padding: 8px 12px;
+  width: 120px;
+}
+
+.budgetInput:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.budgetFormError {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-error);
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .page { padding: var(--space-md); }
 }

@@ -23,9 +23,10 @@ export default function ExpenseChartSection({ chartData = [] }) {
     )
   }
 
-  const maxVal = Math.max(...chartData.map(d => d.value), 1)
+  const trueMax = Math.max(...chartData.map(d => d.value), 0)
+  const maxVal = trueMax > 0 ? trueMax : 1  // 1 only used for bar-height math, never displayed
   const totalSpend = chartData.reduce((s, d) => s + d.value, 0)
-  const avgSpend = totalSpend / chartData.length
+  const avgSpend = chartData.length > 0 ? totalSpend / chartData.length : 0
 
   const now = new Date()
   const currentMonthLabel = now.toLocaleString('en', { month: 'short', year: 'numeric' })
@@ -78,7 +79,7 @@ export default function ExpenseChartSection({ chartData = [] }) {
         <div className={styles.summaryDivider} />
         <div className={styles.summaryItem}>
           <span className={styles.summaryLabel}>{t('chart_peak_month')}</span>
-          <span className={styles.summaryValue}>{fmt(maxVal)}</span>
+          <span className={styles.summaryValue}>{fmt(trueMax)}</span>
         </div>
       </div>
 
@@ -86,8 +87,8 @@ export default function ExpenseChartSection({ chartData = [] }) {
       <div className={styles.chartArea}>
         {/* Y-axis */}
         <div className={styles.yAxis}>
-          <span>{fmt(maxVal)}</span>
-          <span>{fmt(maxVal / 2)}</span>
+          <span>{fmt(trueMax)}</span>
+          <span>{fmt(trueMax / 2)}</span>
           <span>₪0</span>
         </div>
 
