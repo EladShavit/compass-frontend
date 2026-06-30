@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { useTransactions } from '../../hooks/useTransactions'
 import { useChartData } from '../../hooks/useChartData'
 import { useBudgets } from '../../hooks/useBudgets'
@@ -63,6 +64,26 @@ export default function InsightsPage() {
         <ProGate featureKey="progate_insights_feature">
           <div style={{ height: 320 }} />
         </ProGate>
+      </div>
+    )
+  }
+
+  if (transactions.length === 0) {
+    return (
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <h1 className="text-h1">{t('insights_title')}</h1>
+        </header>
+        <div className={styles.emptyState}>
+          <span className="material-symbols-outlined" style={{ fontSize: 56, color: 'var(--color-primary)' }}>
+            bar_chart
+          </span>
+          <h2 className="text-h2">{t('insights_empty_title')}</h2>
+          <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)', maxWidth: 380, textAlign: 'center' }}>
+            {t('insights_empty_desc')}
+          </p>
+          <Link to="/upload" className={styles.emptyBtn}>{t('insights_empty_cta')}</Link>
+        </div>
       </div>
     )
   }

@@ -4,9 +4,11 @@ import Logo from './Logo'
 import NavMenu from './NavMenu'
 import NotificationBell from './NotificationBell'
 import UserAvatar from './UserAvatar'
+import Avatar from '../../Avatar/Avatar'
 import { useAlerts } from '../../../hooks/useAlerts'
 import { useAuth } from '../../../context/AuthContext'
 import { useLanguage } from '../../../context/LanguageContext'
+import { useTier } from '../../../hooks/useTier'
 import { auth } from '../../../lib/auth'
 import styles from './AppNavbar.module.css'
 
@@ -25,6 +27,7 @@ export default function AppNavbar() {
   const { alerts } = useAlerts()
   const { profile, user } = useAuth()
   const { t } = useLanguage()
+  const { isPro, isTrialing, trialDaysLeft } = useTier()
   const unreadCount = alerts.filter((a) => !a.is_read).length
   const [mobileOpen, setMobileOpen] = useState(false)
   const menuRef = useRef(null)
@@ -79,11 +82,13 @@ export default function AppNavbar() {
         <div className={styles.mobileMenu}>
           {/* User identity */}
           <div className={styles.mobileUser}>
-            <div className={styles.mobileAvatar}>{initials}</div>
+            <Avatar src={profile?.avatar_url} initials={initials} alt={name} size="md" />
             <div>
               <div className={styles.mobileName}>{name}</div>
               <div className={styles.mobileTier}>
-                {profile?.tier === 'Pro' ? t('usermenu_pro') : t('usermenu_free')}
+                {isTrialing
+                  ? `${t('profile_tier_trial')} (${trialDaysLeft}d)`
+                  : isPro ? t('usermenu_pro') : t('usermenu_free')}
               </div>
             </div>
             <NotificationBell count={unreadCount} alerts={alerts} />

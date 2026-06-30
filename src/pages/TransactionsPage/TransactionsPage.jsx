@@ -1,14 +1,18 @@
 import { useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { useTransactions } from '../../hooks/useTransactions'
 import RecentTransactionsSection from '../../components/RecentTransactionsSection/RecentTransactionsSection'
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner'
 import Input from '../../components/Input/Input'
 import ManualEntryForm from '../../components/ManualEntryForm/ManualEntryForm'
+import { exportTransactionsCsv } from '../../lib/exportCsv'
+import { useCurrency } from '../../context/CurrencyContext'
 import { useLanguage } from '../../context/LanguageContext'
 import styles from './TransactionsPage.module.css'
 
 export default function TransactionsPage() {
   const { t } = useLanguage()
+  const { currency } = useCurrency()
   const { transactions, loading, error, refetch } = useTransactions(200)
   const [search, setSearch] = useState('')
   const [directionFilter, setDirectionFilter] = useState('all')
@@ -37,14 +41,26 @@ export default function TransactionsPage() {
             {transactions.length} {t('tx_page_total')}
           </p>
         </div>
-        <button
-          type="button"
-          className={styles.addBtn}
-          onClick={() => setShowManual(true)}
-        >
-          <span className="material-symbols-outlined">add</span>
-          {t('tx_add_btn')}
-        </button>
+        <div className={styles.headerActions}>
+          <button
+            type="button"
+            className={styles.exportBtn}
+            onClick={() => exportTransactionsCsv(filtered, currency)}
+            disabled={filtered.length === 0}
+            title={t('tx_export_btn')}
+          >
+            <span className="material-symbols-outlined">download</span>
+            {t('tx_export_btn')}
+          </button>
+          <button
+            type="button"
+            className={styles.addBtn}
+            onClick={() => setShowManual(true)}
+          >
+            <span className="material-symbols-outlined">add</span>
+            {t('tx_add_btn')}
+          </button>
+        </div>
       </header>
 
       <div className={styles.toolbar}>
@@ -76,9 +92,24 @@ export default function TransactionsPage() {
       )}
 
       <div className={styles.tableWrap}>
-        <RecentTransactionsSection transactions={filtered} hideMore />
-        {filtered.length === 0 && !loading && (
-          <p className={styles.empty}>{t('tx_no_match')}</p>
+        {transactions.length === 0 && !loading ? (
+          <div className={styles.emptyState}>
+            <span className="material-symbols-outlined" style={{ fontSize: 56, color: 'var(--color-primary)' }}>
+              receipt_long
+            </span>
+            <h2 className="text-h2">{t('tx_empty_title')}</h2>
+            <p className="text-body-md" style={{ color: 'var(--color-on-surface-variant)', maxWidth: 360, textAlign: 'center' }}>
+              {t('tx_empty_desc')}
+            </p>
+            <Link to="/upload" className={styles.emptyBtn}>{t('tx_empty_cta')}</Link>
+          </div>
+        ) : (
+          <>
+            <RecentTransactionsSection transactions={filtered} hideMore />
+            {filtered.length === 0 && !loading && (
+              <p className={styles.empty}>{t('tx_no_match')}</p>
+            )}
+          </>
         )}
       </div>
 

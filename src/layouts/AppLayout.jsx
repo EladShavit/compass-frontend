@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import AppNavbar from '../components/shared/AppNavbar/AppNavbar'
 import Footer from '../components/shared/Footer/Footer'
 import ChatWidget from '../components/ChatWidget/ChatWidget'
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
 
 function TrialBanner() {
   const { isTrialing, trialDaysLeft } = useTier()
@@ -46,10 +47,14 @@ export default function AppLayout() {
       <AppNavbar />
       <TrialBanner />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </div>
       <Footer />
-      <ChatWidget />
+      <ErrorBoundary fallback={null}>
+        <ChatWidget />
+      </ErrorBoundary>
     </div>
   )
 }

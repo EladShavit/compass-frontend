@@ -10,6 +10,30 @@
 
 .header {}
 
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 150ms;
+}
+
+.emptyBtn:hover { opacity: 0.85; }
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

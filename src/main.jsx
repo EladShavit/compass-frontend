@@ -4,19 +4,22 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { CurrencyProvider } from './context/CurrencyContext'
 import { LanguageProvider } from './context/LanguageContext'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import './styles/globals.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <LanguageProvider>
-        <AuthProvider>
-          <CurrencyProvider>
-            <App />
-          </CurrencyProvider>
-        </AuthProvider>
-      </LanguageProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <LanguageProvider>
+          <AuthProvider>
+            <CurrencyProvider>
+              <App />
+            </CurrencyProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   </StrictMode>,
 )
